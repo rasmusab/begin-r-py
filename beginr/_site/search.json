@@ -1,0 +1,19 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Made by me, Rasmus Bååth. My webpage is: www.sumsar.net."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "R starts here!",
+    "section": "",
+    "text": "R is a powerful programming language for data analysis and statistics.\nBut let’s start simple. Out-of-the-box R can do everything you’d expect a calculator to do.\nHere’s a code cell where you can put in any R code you want. But for now, let’s just add two numbers together and then press ▶ Run Code.",
+    "crumbs": [
+      "1. R starts here!"
+    ]
+  }
+]
