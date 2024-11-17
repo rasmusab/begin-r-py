@@ -1,0 +1,19 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Made by me, Rasmus Bååth. My webpage is: www.sumsar.net."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Python starts here!",
+    "section": "",
+    "text": "Python is a powerful programming language for data analysis and statistics.\nBut let’s start simple. Out-of-the-box Python can do everything you’d expect a calculator to do.\nHere’s a code cell where you can put in any Python code you want. But for now, let’s just add two numbers together and then press ▶ Run Code.",
+    "crumbs": [
+      "1. Python starts here!"
+    ]
+  }
+]

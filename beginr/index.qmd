@@ -12,13 +12,13 @@ output_dir: _site
 engine: knitr
 ---
 
-{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
 R is a powerful programming language for data analysis and statistics. 
 
 But let's start simple. Out-of-the-box R can do everything you'd expect a calculator to do. 
 
-Here's a code cell where you can put in any R code you want. But for now, let's just add two numbers together and then press *▶ Run Code*.
+Here's a code cell where you can put in any R code you want. But for now, let's just add two numbers together and then press **▶ Run Code**.
 
 ```{webr}
 #| exercise: ex1

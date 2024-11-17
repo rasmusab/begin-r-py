@@ -1,0 +1,40 @@
+---
+title: "Python starts here!"
+format: 
+  live-html:
+    pyodide:
+      packages:
+        - pandas
+      cell-options:
+        caption: 
+        warning: false
+output_dir: _site
+engine: knitr
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+Python is a powerful programming language for data analysis and statistics. 
+
+But let's start simple. Out-of-the-box Python can do everything you'd expect a calculator to do. 
+
+Here's a code cell where you can put in any Python code you want. But for now, let's just add two numbers together and then press **▶ Run Code**.
+
+```{pyodide}
+#| exercise: ex1
+#| startover: false
+
+```
+
+```{pyodide}
+#| exercise: ex1
+#| check: true
+import numbers
+if isinstance(result, numbers.Number):
+  feedback = {"correct": True, "message": "That sure looks like a number to me!"}
+else:
+  feedback = {"correct": False, "message": "Try adding two numbers, say 19 + 23."}
+  print("Try adding two numbers, say 19 + 23.")
+feedback
+```
+

@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "Begin Python"
+  sidebar:
+    style: "floating"
+    search: false
+    contents:
+      - text: "1. Python starts here!"
+        href: index.qmd
+  page-footer: 
+    left: "Made by [Rasmus Bååth](https://www.sumsar.net)" 
+    right: 
+      - icon: github
+        href: https://github.com/rasmusab/begin-r-py
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: false
+
