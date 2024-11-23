@@ -1,15 +1,5 @@
 ---
 title: "R starts here!"
-format: 
-  live-html:
-    webr:
-      packages:
-        - base
-      cell-options:
-        caption: 
-        warning: false
-output_dir: _site
-engine: knitr
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -36,3 +26,46 @@ if(is.numeric(.result)) {
 }
 ```
 
+:::: {.instructions-and-exercise previous-exercise="ex1"}
+
+But wait, there's also other datatypes! Try writing a string in the code cell below and then press **▶ Run Code**.
+Tip: Use double quotes to define a string, like this: `"Hello, World!"`
+
+
+```{webr}
+#| exercise: ex2
+#| startover: false
+
+```
+
+```{webr}
+#| exercise: ex2
+#| check: true
+if(is.character(.result)) {
+  list(correct = TRUE, message = paste0("\"", .result, "\" is indeed a string!"))
+} else {
+  list(correct = FALSE, message = "Use quotes to define a string \"like this!\"")
+}
+```
+
+::::
+
+:::: {.instructions-and-exercise previous-exercise="ex2" last-of-chapter="1"}
+
+```{webr}
+#| exercise: ex3
+#| startover: false
+
+```
+
+```{webr}
+#| exercise: ex3
+#| check: true
+if(is.character(.result)) {
+  list(correct = TRUE, message = paste0("\"", .result, "\" is indeed a string!"))
+} else {
+  list(correct = FALSE, message = "Use quotes to define a string \"like this!\"")
+}
+```
+
+::::

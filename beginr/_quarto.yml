@@ -9,15 +9,29 @@ website:
     contents:
       - text: "1. R starts here!"
         href: index.qmd
+  body-header: |
+    <div style="text-align: right;">
+      <button id="reset-exercise-button">Restart chapter</button>
+    </div>
   page-footer: 
     left: "Made by [Rasmus Bååth](https://www.sumsar.net)" 
     right: 
       - icon: github
         href: https://github.com/rasmusab/begin-r-py
 
-format:
-  html:
+format: 
+  live-html:
+    webr:
+      packages:
+        - base
+      cell-options:
+        caption: 
+        warning: false
     theme: cosmo
     css: styles.css
     toc: false
-
+    include-in-header:
+      - quarto-live-customization.js
+          
+output_dir: _site
+engine: knitr
