@@ -1,13 +1,15 @@
 <!-- quarto-live-customization.js -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const courseId = window.location.pathname; // Use the page's path as the scope
-    const LOCAL_STORAGE_KEY = `revealedExercises-${courseId}`;
-    const EDITED_TEXT_KEY = `editedExerciseText-${courseId}`;
+    const chapterId = window.location.pathname; // Use the page's path as the scope
+    const LOCAL_STORAGE_KEY = `completedExercises-${chapterId}`;
+    const EDITED_TEXT_KEY = `editedExerciseText-${chapterId}`;
+    const FINISHED_CHAPTERS_KEY = `finishedChapters`;
 
     // Retrieve stored revealed exercises and edited text
-    const revealedExercises = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+    const completedExercises = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
     const editedTexts = JSON.parse(localStorage.getItem(EDITED_TEXT_KEY)) || {};
+    const finishedChapters = JSON.parse(localStorage.getItem(FINISHED_CHAPTERS_KEY)) || [];
 
     // Restore text for all cm-content divs
     const restoreEditedTexts = (cmContent) => {
@@ -55,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (mutation.type === 'childList') {
                     mutation.addedNodes.forEach(node => {
                         // console.log(node);
-                        if (node.nodeType === 1) {
+                        if (node.tagName === 'DIV') {
                             // Check if the added node is a cm-content div or contains cm-content divs
                             const cmContents = node.querySelectorAll('.cm-content');
                             console.log(cmContents);
@@ -77,15 +79,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Set all divs with class instructions-and-exercise to opacity = 0 and unclickable
     const instructionDivs = document.querySelectorAll('div.instructions-and-exercise');
-    instructionDivs.forEach(div => {
-        const exerciseValue = div.getAttribute("data-previous-exercise");
-        if (revealedExercises.includes(exerciseValue)) {
+    // Hiding all but the first instructions-and-exercise div
+    Array.from(instructionDivs).slice(1).forEach(div => {
+        const exerciseValue = div.getAttribute("data-exercise");
+        const previousExerciseValue = exerciseValue.replace(/(\d+)$/, (_, num) => {
+            return String(Number(num) - 1);
+        });
+        if (completedExercises.includes(previousExerciseValue)) {
             div.style.opacity = 1;
             div.style.pointerEvents = "auto";
             div.style.display = "block";
         } else {
             div.style.opacity = 0;
             div.style.pointerEvents = "none";
+            div.style.display = "none";
         }
     });
 
@@ -109,55 +116,45 @@ document.addEventListener("DOMContentLoaded", () => {
             if (mutation.type === 'childList') {
                 mutation.addedNodes.forEach(node => {
                     if (
-                        node.nodeType === 1 &&
-                        node.classList.contains('alert') &&
+                        node.tagName === 'DIV' &&
                         node.classList.contains('exercise-grade') &&
                         node.classList.contains('alert-success')
                     ) {
                         const parentWithExercise = node.closest('div[data-exercise]');
                         if (parentWithExercise) {
-                            const dataExerciseValue = parentWithExercise.getAttribute('data-exercise');
-                            customActionOnExercise(dataExerciseValue);
-                        }
-                        const parentInstructionsAndExcercise = node.closest('div.instructions-and-exercise');
-                        if (parentInstructionsAndExcercise) {
-                            // pick out last-of-chapter attribute, if it exists
-                            const lastOfChapter = parentInstructionsAndExcercise.getAttribute('data-last-of-chapter');
-                            // if last-of-chapter is set then append it to a list in local storage called 
-                            // finishedChapters
-                            if (lastOfChapter) {
-                                const finishedChapters = JSON.parse(localStorage.getItem('finishedChapters')) || [];
-                                if (!finishedChapters.includes(lastOfChapter)) {
-                                    finishedChapters.push(lastOfChapter);
-                                    localStorage.setItem('finishedChapters', JSON.stringify(finishedChapters));
-                                }
-                                console.log(finishedChapters);
+                            const exerciseValue = parentWithExercise.getAttribute('data-exercise');
+                            if (!completedExercises.includes(exerciseValue)) {
+                              completedExercises.push(exerciseValue);
+                              localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(completedExercises));
+                            }
+                            // If exerciseValue is, say, ex4, then the next exercise is ex5
+                            // Extract this using a regexp
+                            const nextExercise = exerciseValue.replace(/(\d+)$/, (_, num) => {
+                              return String(Number(num) + 1);
+                            });
+                            
+                            const targetDiv = document.querySelector(
+                              `div.instructions-and-exercise[data-exercise="${nextExercise}"]`
+                            );
+                            
+                            if (targetDiv) {
+                              targetDiv.style.transition = 'opacity 0.5s';
+                              targetDiv.style.display = 'block';
+                  
+                              setTimeout(() => {
+                                  targetDiv.style.opacity = 1;
+                                  targetDiv.style.pointerEvents = 'auto';
+                              }, 1000);
+                            } else { // Assume we've completed the last exercise of the chapter
+                              if (!finishedChapters.includes(chapterId)) {
+                                finishedChapters.push(chapterId);
+                                localStorage.setItem('finishedChapters', JSON.stringify(finishedChapters));
+                              }
                             }
                         }
                     }
                 });
             }
-        }
-    };
-
-    const customActionOnExercise = (exerciseValue) => {
-        const targetDiv = document.querySelector(
-            `div.instructions-and-exercise[data-previous-exercise="${exerciseValue}"]`
-        );
-
-        if (targetDiv) {
-            targetDiv.style.transition = 'opacity 0.5s';
-            targetDiv.style.display = 'block';
-
-            setTimeout(() => {
-                targetDiv.style.opacity = 1;
-                targetDiv.style.pointerEvents = 'auto';
-
-                if (!revealedExercises.includes(exerciseValue)) {
-                    revealedExercises.push(exerciseValue);
-                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(revealedExercises));
-                }
-            }, 1000);
         }
     };
 

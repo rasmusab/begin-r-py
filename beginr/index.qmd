@@ -4,6 +4,8 @@ title: "R starts here!"
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
+:::: {.instructions-and-exercise exercise="ex1"}
+
 R is a powerful programming language for data analysis and statistics. 
 
 But let's start simple. Out-of-the-box R can do everything you'd expect a calculator to do. 
@@ -26,7 +28,9 @@ if(is.numeric(.result)) {
 }
 ```
 
-:::: {.instructions-and-exercise previous-exercise="ex1"}
+::::
+
+:::: {.instructions-and-exercise exercise="ex2"}
 
 But wait, there's also other datatypes! Try writing a string in the code cell below and then press **▶ Run Code**.
 Tip: Use double quotes to define a string, like this: `"Hello, World!"`
@@ -50,7 +54,7 @@ if(is.character(.result)) {
 
 ::::
 
-:::: {.instructions-and-exercise previous-exercise="ex2" last-of-chapter="1"}
+:::: {.instructions-and-exercise exercise="ex3"}
 
 ```{webr}
 #| exercise: ex3
