@@ -9,6 +9,8 @@ website:
     contents:
       - text: "1. R starts here!"
         href: index.qmd
+      - text: "About"
+        href: about.qmd
   body-header: |
     <div style="text-align: right;">
       <button id="reset-exercise-button">Restart chapter</button>

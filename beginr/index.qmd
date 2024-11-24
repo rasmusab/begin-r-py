@@ -73,3 +73,9 @@ if(is.character(.result)) {
 ```
 
 ::::
+
+:::: {.completed-chapter-instructions}
+
+Great work. Now go to the next chapter!
+
+::::
