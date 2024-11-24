@@ -4,14 +4,17 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Made by me, Rasmus Bååth. My webpage is: www.sumsar.net."
+    "text": "Restart chapter\nMade by me, Rasmus Bååth. My webpage is: www.sumsar.net.",
+    "crumbs": [
+      "About"
+    ]
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "R starts here!",
     "section": "",
-    "text": "R is a powerful programming language for data analysis and statistics.\nBut let’s start simple. Out-of-the-box R can do everything you’d expect a calculator to do.\nHere’s a code cell where you can put in any R code you want. But for now, let’s just add two numbers together and then press ▶ Run Code.",
+    "text": "Restart chapter\n\nR is a powerful programming language for data analysis and statistics.\nBut let’s start simple. Out-of-the-box R can do everything you’d expect a calculator to do.\nHere’s a code cell where you can put in any R code you want. But for now, let’s just add two numbers together and then press ▶ Run Code.\n\n\n\n\n\n\n\n\n\n\n\n\n\nBut wait, there’s also other datatypes! Try writing a string in the code cell below and then press ▶ Run Code. Tip: Use double quotes to define a string, like this: \"Hello, World!\"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGreat work. Now go to the next chapter!",
     "crumbs": [
       "1. R starts here!"
     ]
