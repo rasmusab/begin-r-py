@@ -33,7 +33,7 @@ format:
     css: styles.css
     toc: false
     include-in-header:
-      - quarto-live-customization.js
+      - quarto-live-customization.html
           
 output_dir: _site
 engine: knitr

@@ -1,27 +1,31 @@
 ---
 title: "R starts here!"
+format: 
+  live-html:
+    webr:
+      cell-options:
+        startover: false
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
 :::: {.instructions-and-exercise exercise="ex1"}
 
-R is a powerful programming language for data analysis and statistics. 
+R is a powerful programming language that excels at data analysis and statistics. But really, it can do almost **anything**!
 
-But let's start simple. Out-of-the-box R can do everything you'd expect a calculator to do. 
+But let's start simple: Out-of-the-box R can do everything you'd expect a calculator to do. Here's a code cell where you can put in any R code you want. 
 
-Here's a code cell where you can put in any R code you want. But for now, let's just add two numbers together and then press **▶ Run Code**.
+<div class="task-callout">But for now, just add two numbers together and press **▶ Run Code**.</div>
 
 ```{webr}
 #| exercise: ex1
-#| startover: false
 
 ```
 
 ```{webr}
 #| exercise: ex1
 #| check: true
-if(is.numeric(.result)) {
+if(is.numeric(.result) && grepl("\\+", .user_code)) {
   list(correct = TRUE, message = "That sure looks like a number to me!")
 } else {
   list(correct = FALSE, message = "Try adding two numbers, say 19 + 23.")
@@ -32,23 +36,22 @@ if(is.numeric(.result)) {
 
 :::: {.instructions-and-exercise exercise="ex2"}
 
-But wait, there's also other datatypes! Try writing a string in the code cell below and then press **▶ Run Code**.
-Tip: Use double quotes to define a string, like this: `"Hello, World!"`
+Friends of `+`, like `-`, `/`, and `*` works like expected. R also includes a large number of mathematical functions, like `log`, `exp`, and `sqrt`. To _call_ a function you write it's name followed by the _argument_ between parentheses, like `log(2.72)` or `sin(1.57)`.
 
+<div class="task-callout">Calculate the square root of `1764`.</div>
 
 ```{webr}
 #| exercise: ex2
-#| startover: false
 
 ```
 
 ```{webr}
 #| exercise: ex2
 #| check: true
-if(is.character(.result)) {
-  list(correct = TRUE, message = paste0("\"", .result, "\" is indeed a string!"))
+if(is.numeric(.result) && .result == 42) {
+  list(correct = TRUE, message = "42 is indeed the answer!")
 } else {
-  list(correct = FALSE, message = "Use quotes to define a string \"like this!\"")
+  list(correct = FALSE, message = "Use the `sqrt` function, and don't forget `(` and `)`.")
 }
 ```
 
@@ -56,14 +59,110 @@ if(is.character(.result)) {
 
 :::: {.instructions-and-exercise exercise="ex3"}
 
+Functions can have more than one argument, which, are, then, separated, by, commas. For example, `max(1, 3, 5, 4, 2)` returns the highest of it's arguments: `5`. Another function that can take many arguments is `sum` 
+
+<div class="task-callout">Use `sum` to sum up several large numbers, I don't care which, but they should total more than 1,000,000!</div>
+
 ```{webr}
 #| exercise: ex3
-#| startover: false
 
 ```
 
 ```{webr}
 #| exercise: ex3
+#| check: true
+if(is.numeric(.result) && grepl("sum", .user_code) && .result >= 1000000) {
+  list(correct = TRUE, message = "Yep! The whole is exactly the sum of the parts!")
+} else if(is.numeric(.result) && grepl("sum", .user_code) && .result < 1000000) {
+  list(correct = FALSE, message = "Almost there, just add some more numbers!")
+} else {
+  list(correct = FALSE, message = "Not quite. Here's how you can sum up some small numbers: sum(3, 4, 2). Now, make them big!")
+}
+```
+
+::::
+
+:::: {.instructions-and-exercise exercise="ex4"}
+
+R can work with more than numbers and there are many other types of data, or _data types_, in R. A pieces of text, often called a _string_, is written by putting the text "into quotes".
+
+<div class="task-callout">Try writing a string, any string, in the code cell below. I promise I'll repeat it three times.</div>
+
+
+```{webr}
+#| exercise: ex4
+
+```
+
+```{webr}
+#| exercise: ex4
+#| check: true
+if(is.character(.result)) {
+  list(correct = TRUE, message = paste0(.result, "! ", .result, "! ", .result, "! ", " Did I summon something?"))
+} else {
+  list(correct = FALSE, message = "Use quotes to define a string \"like this!\"")
+}
+```
+
+::::
+
+:::: {.instructions-and-exercise exercise="ex5"}
+
+Like with numbers, you can also apply functions to strings. For example, `tolower()` turns all characters into lower case.
+
+<div class="task-callout">We're in a library. Use `tolower` on the string to get the upset person to calm down.</div>
+
+```{webr}
+#| exercise: ex5
+#| startover: true
+"BEEN SEARCHING FOR HOURS, WHERE'S KAFKA'S THE PROCESS?"
+```
+
+```{webr}
+#| exercise: ex5
+#| check: true
+if(is.numeric(.result) && grepl("sum", .user_code) && .result == tolower(.result)) {
+  list(correct = TRUE, message = "Great! You've calmed down. Unfortunatlely, the last copy just got borrowed by a giant bug!")
+} else {
+  list(correct = FALSE, message = "Wrong!")
+}
+```
+
+::::
+
+
+
+:::: {.instructions-and-exercise exercise="ex6"}
+
+<div class="task-callout">...</div>
+
+```{webr}
+#| exercise: ex6
+
+```
+
+```{webr}
+#| exercise: ex6
+#| check: true
+if(is.numeric(.result)) {
+  list(correct = TRUE, message = "Correct!")
+} else {
+  list(correct = FALSE, message = "Wrong!")
+}
+```
+
+::::
+
+
+:::: {.instructions-and-exercise exercise="ex7"}
+
+```{webr}
+#| exercise: ex7
+
+```
+
+```{webr}
+#| exercise: ex7
 #| check: true
 if(is.character(.result)) {
   list(correct = TRUE, message = paste0("\"", .result, "\" is indeed a string!"))

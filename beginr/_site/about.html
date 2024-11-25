@@ -68,7 +68,23 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<!-- quarto-live-customization.js -->
+<!-- quarto-live-customization.html -->
+
+<!-- CSS additions -->
+<style>
+  div.task-callout {
+  
+  }
+  div.task-callout::before {
+    content: "📝 ";
+    margin-right: 5px;
+  }
+}
+</style>
+
+
+
+<!-- JS additions -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const chapterPath = window.location.pathname;
