@@ -36,9 +36,9 @@ if(is.numeric(.result) && grepl("\\+", .user_code)) {
 
 :::: {.instructions-and-exercise exercise="ex2"}
 
-Friends of `+`, like `-`, `/`, and `*` works like expected. R also includes a large number of mathematical functions, like `log`, `exp`, and `sqrt`. To _call_ a function you write it's name followed by the _argument_ between parentheses, like `log(2.72)` or `sin(1.57)`.
+Friends of `+`, like `-`, `/`, and `*` works like expected. R also includes a large number of mathematical functions, like `log()`, `exp()`, and `sqrt()`. To _call_ a function you write its name followed by the _argument_ between parentheses, like `log(2.72)` or `sin(1.57)`.
 
-<div class="task-callout">Calculate the square root of `1764`.</div>
+<div class="task-callout">Calculate the square root of `1764` using `sqrt()`.</div>
 
 ```{webr}
 #| exercise: ex2
@@ -51,7 +51,7 @@ Friends of `+`, like `-`, `/`, and `*` works like expected. R also includes a la
 if(is.numeric(.result) && .result == 42) {
   list(correct = TRUE, message = "42 is indeed the answer!")
 } else {
-  list(correct = FALSE, message = "Use the `sqrt` function, and don't forget `(` and `)`.")
+  list(correct = FALSE, message = "Try again! Use the `sqrt` function, and don't forget `(` and `)`.")
 }
 ```
 
@@ -59,7 +59,7 @@ if(is.numeric(.result) && .result == 42) {
 
 :::: {.instructions-and-exercise exercise="ex3"}
 
-Functions can have more than one argument, which, are, then, separated, by, commas. For example, `max(1, 3, 5, 4, 2)` returns the highest of it's arguments: `5`. Another function that can take many arguments is `sum` 
+Functions can have more than one argument, which, are, then, separated, by, commas. For example, `max(1, 3, 5, 4, 2)` returns the highest of it's arguments: `5`. Another function that can take many arguments is `sum`.
 
 <div class="task-callout">Use `sum` to sum up several large numbers, I don't care which, but they should total more than 1,000,000!</div>
 
@@ -72,7 +72,7 @@ Functions can have more than one argument, which, are, then, separated, by, comm
 #| exercise: ex3
 #| check: true
 if(is.numeric(.result) && grepl("sum", .user_code) && .result >= 1000000) {
-  list(correct = TRUE, message = "Yep! The whole is exactly the sum of the parts!")
+  list(correct = TRUE, message = "Huge! The whole is exactly the sum of the parts!")
 } else if(is.numeric(.result) && grepl("sum", .user_code) && .result < 1000000) {
   list(correct = FALSE, message = "Almost there, just add some more numbers!")
 } else {
@@ -86,7 +86,7 @@ if(is.numeric(.result) && grepl("sum", .user_code) && .result >= 1000000) {
 
 R can work with more than numbers and there are many other types of data, or _data types_, in R. A pieces of text, often called a _string_, is written by putting the text "into quotes".
 
-<div class="task-callout">Try writing a string, any string, in the code cell below. I promise I'll repeat it three times.</div>
+<div class="task-callout">Try writing a string, any string, in the code cell below. I'll repeat it three times.</div>
 
 
 ```{webr}
@@ -100,7 +100,7 @@ R can work with more than numbers and there are many other types of data, or _da
 if(is.character(.result)) {
   list(correct = TRUE, message = paste0(.result, "! ", .result, "! ", .result, "! ", " Did I summon something?"))
 } else {
-  list(correct = FALSE, message = "Use quotes to define a string \"like this!\"")
+  list(correct = FALSE, message = "Try again. Use quotes to define a string \"like this!\"")
 }
 ```
 
@@ -121,10 +121,10 @@ Like with numbers, you can also apply functions to strings. For example, `tolowe
 ```{webr}
 #| exercise: ex5
 #| check: true
-if(is.numeric(.result) && grepl("sum", .user_code) && .result == tolower(.result)) {
+if(is.character(.result) && grepl("tolower", .user_code) && .result == tolower(.result)) {
   list(correct = TRUE, message = "Great! You've calmed down. Unfortunatlely, the last copy just got borrowed by a giant bug!")
 } else {
-  list(correct = FALSE, message = "Wrong!")
+  list(correct = FALSE, message = "Not exactly. For example, toupper(\"I'm not screaming!\") will return \"I'M NOT SCREAMING!\". But here, use tolower() instead.")
 }
 ```
 

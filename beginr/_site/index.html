@@ -441,9 +441,9 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex2">
-<p>Friends of <code>+</code>, like <code>-</code>, <code>/</code>, and <code>*</code> works like expected. R also includes a large number of mathematical functions, like <code>log</code>, <code>exp</code>, and <code>sqrt</code>. To <em>call</em> a function you write it’s name followed by the <em>argument</em> between parentheses, like <code>log(2.72)</code> or <code>sin(1.57)</code>.</p>
+<p>Friends of <code>+</code>, like <code>-</code>, <code>/</code>, and <code>*</code> works like expected. R also includes a large number of mathematical functions, like <code>log()</code>, <code>exp()</code>, and <code>sqrt()</code>. To <em>call</em> a function you write its name followed by the <em>argument</em> between parentheses, like <code>log(2.72)</code> or <code>sin(1.57)</code>.</p>
 <div class="task-callout">
-Calculate the square root of <code>1764</code>.
+Calculate the square root of <code>1764</code> using <code>sqrt()</code>.
 </div>
 <div class="cell" data-exercise="ex2">
 <div>
@@ -457,12 +457,12 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImV4
 </div>
 <div class="cell" data-exercise="ex2" data-check="true">
 <script type="exercise-check-ex2-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDIiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5udW1lcmljKC5yZXN1bHQpICYmIC5yZXN1bHQgPT0gNDIpIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiNDIgaXMgaW5kZWVkIHRoZSBhbnN3ZXIhXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiVXNlIHRoZSBgc3FydGAgZnVuY3Rpb24sIGFuZCBkb24ndCBmb3JnZXQgYChgIGFuZCBgKWAuXCIpXG59In0=
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDIiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5udW1lcmljKC5yZXN1bHQpICYmIC5yZXN1bHQgPT0gNDIpIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiNDIgaXMgaW5kZWVkIHRoZSBhbnN3ZXIhXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiVHJ5IGFnYWluISBVc2UgdGhlIGBzcXJ0YCBmdW5jdGlvbiwgYW5kIGRvbid0IGZvcmdldCBgKGAgYW5kIGApYC5cIilcbn0ifQ==
 </script>
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex3">
-<p>Functions can have more than one argument, which, are, then, separated, by, commas. For example, <code>max(1, 3, 5, 4, 2)</code> returns the highest of it’s arguments: <code>5</code>. Another function that can take many arguments is <code>sum</code></p>
+<p>Functions can have more than one argument, which, are, then, separated, by, commas. For example, <code>max(1, 3, 5, 4, 2)</code> returns the highest of it’s arguments: <code>5</code>. Another function that can take many arguments is <code>sum</code>.</p>
 <div class="task-callout">
 Use <code>sum</code> to sum up several large numbers, I don’t care which, but they should total more than 1,000,000!
 </div>
@@ -478,14 +478,14 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImV4
 </div>
 <div class="cell" data-exercise="ex3" data-check="true">
 <script type="exercise-check-ex3-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDMiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpICYmIC5yZXN1bHQgPj0gMTAwMDAwMCkge1xuICBsaXN0KGNvcnJlY3QgPSBUUlVFLCBtZXNzYWdlID0gXCJZZXAhIFRoZSB3aG9sZSBpcyBleGFjdGx5IHRoZSBzdW0gb2YgdGhlIHBhcnRzIVwiKVxufSBlbHNlIGlmKGlzLm51bWVyaWMoLnJlc3VsdCkgJiYgZ3JlcGwoXCJzdW1cIiwgLnVzZXJfY29kZSkgJiYgLnJlc3VsdCA8IDEwMDAwMDApIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIkFsbW9zdCB0aGVyZSwganVzdCBhZGQgc29tZSBtb3JlIG51bWJlcnMhXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiTm90IHF1aXRlLiBIZXJlJ3MgaG93IHlvdSBjYW4gc3VtIHVwIHNvbWUgc21hbGwgbnVtYmVyczogc3VtKDMsIDQsIDIpLiBOb3csIG1ha2UgdGhlbSBiaWchXCIpXG59In0=
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDMiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpICYmIC5yZXN1bHQgPj0gMTAwMDAwMCkge1xuICBsaXN0KGNvcnJlY3QgPSBUUlVFLCBtZXNzYWdlID0gXCJIdWdlISBUaGUgd2hvbGUgaXMgZXhhY3RseSB0aGUgc3VtIG9mIHRoZSBwYXJ0cyFcIilcbn0gZWxzZSBpZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpICYmIC5yZXN1bHQgPCAxMDAwMDAwKSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJBbG1vc3QgdGhlcmUsIGp1c3QgYWRkIHNvbWUgbW9yZSBudW1iZXJzIVwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIk5vdCBxdWl0ZS4gSGVyZSdzIGhvdyB5b3UgY2FuIHN1bSB1cCBzb21lIHNtYWxsIG51bWJlcnM6IHN1bSgzLCA0LCAyKS4gTm93LCBtYWtlIHRoZW0gYmlnIVwiKVxufSJ9
 </script>
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex4">
 <p>R can work with more than numbers and there are many other types of data, or <em>data types</em>, in R. A pieces of text, often called a <em>string</em>, is written by putting the text “into quotes”.</p>
 <div class="task-callout">
-Try writing a string, any string, in the code cell below. I promise I’ll repeat it three times.
+Try writing a string, any string, in the code cell below. I’ll repeat it three times.
 </div>
 <div class="cell" data-exercise="ex4">
 <div>
@@ -499,7 +499,7 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImV4
 </div>
 <div class="cell" data-exercise="ex4" data-check="true">
 <script type="exercise-check-ex4-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDQiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5jaGFyYWN0ZXIoLnJlc3VsdCkpIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IHBhc3RlMCgucmVzdWx0LCBcIiEgXCIsIC5yZXN1bHQsIFwiISBcIiwgLnJlc3VsdCwgXCIhIFwiLCBcIiBEaWQgSSBzdW1tb24gc29tZXRoaW5nP1wiKSlcbn0gZWxzZSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJVc2UgcXVvdGVzIHRvIGRlZmluZSBhIHN0cmluZyBcXFwibGlrZSB0aGlzIVxcXCJcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDQiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5jaGFyYWN0ZXIoLnJlc3VsdCkpIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IHBhc3RlMCgucmVzdWx0LCBcIiEgXCIsIC5yZXN1bHQsIFwiISBcIiwgLnJlc3VsdCwgXCIhIFwiLCBcIiBEaWQgSSBzdW1tb24gc29tZXRoaW5nP1wiKSlcbn0gZWxzZSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJUcnkgYWdhaW4uIFVzZSBxdW90ZXMgdG8gZGVmaW5lIGEgc3RyaW5nIFxcXCJsaWtlIHRoaXMhXFxcIlwiKVxufSJ9
 </script>
 </div>
 </div>
@@ -520,7 +520,7 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6ImV4
 </div>
 <div class="cell" data-exercise="ex5" data-check="true">
 <script type="exercise-check-ex5-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDUiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpICYmIC5yZXN1bHQgPT0gdG9sb3dlcigucmVzdWx0KSkge1xuICBsaXN0KGNvcnJlY3QgPSBUUlVFLCBtZXNzYWdlID0gXCJHcmVhdCEgWW91J3ZlIGNhbG1lZCBkb3duLiBVbmZvcnR1bmF0bGVseSwgdGhlIGxhc3QgY29weSBqdXN0IGdvdCBib3Jyb3dlZCBieSBhIGdpYW50IGJ1ZyFcIilcbn0gZWxzZSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJXcm9uZyFcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDUiLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJpZihpcy5jaGFyYWN0ZXIoLnJlc3VsdCkgJiYgZ3JlcGwoXCJ0b2xvd2VyXCIsIC51c2VyX2NvZGUpICYmIC5yZXN1bHQgPT0gdG9sb3dlcigucmVzdWx0KSkge1xuICBsaXN0KGNvcnJlY3QgPSBUUlVFLCBtZXNzYWdlID0gXCJHcmVhdCEgWW91J3ZlIGNhbG1lZCBkb3duLiBVbmZvcnR1bmF0bGVseSwgdGhlIGxhc3QgY29weSBqdXN0IGdvdCBib3Jyb3dlZCBieSBhIGdpYW50IGJ1ZyFcIilcbn0gZWxzZSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJOb3QgZXhhY3RseS4gRm9yIGV4YW1wbGUsIHRvdXBwZXIoXFxcIkknbSBub3Qgc2NyZWFtaW5nIVxcXCIpIHdpbGwgcmV0dXJuIFxcXCJJJ00gTk9UIFNDUkVBTUlORyFcXFwiLiBCdXQgaGVyZSwgdXNlIHRvbG93ZXIoKSBpbnN0ZWFkLlwiKVxufSJ9
 </script>
 </div>
 </div>
