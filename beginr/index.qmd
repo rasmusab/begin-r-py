@@ -33,7 +33,6 @@ if(is.numeric(.result) && grepl("\\+", .user_code)) {
 ```
 
 ::::
-
 :::: {.instructions-and-exercise exercise="ex2"}
 
 Friends of `+`, like `-`, `/`, and `*` works like expected. R also includes a large number of mathematical functions, like `log()`, `exp()`, and `sqrt()`. To _call_ a function you write its name followed by the _argument_ between parentheses, like `log(2.72)` or `sin(1.57)`.
@@ -56,12 +55,11 @@ if(is.numeric(.result) && .result == 42) {
 ```
 
 ::::
-
 :::: {.instructions-and-exercise exercise="ex3"}
 
-Functions can have more than one argument, which, are, then, separated, by, commas. For example, `max(1, 3, 5, 4, 2)` returns the highest of it's arguments: `5`. Another function that can take many arguments is `sum`.
+Functions can have more than one argument, which, are, then, separated, by, commas. For example, `max(1, 3, 5, 4, 2)` returns the highest of it's arguments: `5`. Another function that can take many arguments is `sum()`.
 
-<div class="task-callout">Use `sum` to sum up several large numbers, I don't care which, but they should total more than 1,000,000!</div>
+<div class="task-callout">Use `sum()` to sum up several large numbers, I don't care which, but they should total more than 1,000,000!</div>
 
 ```{webr}
 #| exercise: ex3
@@ -81,7 +79,6 @@ if(is.numeric(.result) && grepl("sum", .user_code) && .result >= 1000000) {
 ```
 
 ::::
-
 :::: {.instructions-and-exercise exercise="ex4"}
 
 R can work with more than numbers and there are many other types of data, or _data types_, in R. A pieces of text, often called a _string_, is written by putting the text "into quotes".
@@ -100,17 +97,16 @@ R can work with more than numbers and there are many other types of data, or _da
 if(is.character(.result)) {
   list(correct = TRUE, message = paste0(.result, "! ", .result, "! ", .result, "! ", " Did I summon something?"))
 } else {
-  list(correct = FALSE, message = "Try again. Use quotes to define a string \"like this!\"")
+  list(correct = FALSE, message = "Try again! Use quotes to define a string \"like this!\"")
 }
 ```
 
 ::::
-
 :::: {.instructions-and-exercise exercise="ex5"}
 
 Like with numbers, you can also apply functions to strings. For example, `tolower()` turns all characters into lower case.
 
-<div class="task-callout">We're in a library. Use `tolower` on the string to get the upset person to calm down.</div>
+<div class="task-callout">We're in a library. Use `tolower()` on the string to get the upset person to calm down.</div>
 
 ```{webr}
 #| exercise: ex5
@@ -129,12 +125,11 @@ if(is.character(.result) && grepl("tolower", .user_code) && .result == tolower(.
 ```
 
 ::::
-
-
-
 :::: {.instructions-and-exercise exercise="ex6"}
 
-<div class="task-callout">...</div>
+And, of course, there are functions that takes both numbers and strings as arguments. But the order of the arguments is important! For example, for `rep()` the first argument is the value to repeat, and the second argument is the number of repetitions. 
+
+<div class="task-callout">Repeat a moderately dirty word a 100 times using `rep()`.</div>
 
 ```{webr}
 #| exercise: ex6
@@ -144,37 +139,187 @@ if(is.character(.result) && grepl("tolower", .user_code) && .result == tolower(.
 ```{webr}
 #| exercise: ex6
 #| check: true
-if(is.numeric(.result)) {
-  list(correct = TRUE, message = "Correct!")
+if(is.character(.result) && length(.result) == 100) {
+  list(correct = TRUE, message = "Oh, that's real mature of you! But I guess I did ask for it...")
 } else {
-  list(correct = FALSE, message = "Wrong!")
+  list(correct = FALSE, message = 'Try again! For example, rep("Donkey", 7) would repeat Donkey seven times.')
 }
 ```
 
 ::::
-
-
 :::: {.instructions-and-exercise exercise="ex7"}
 
+It might not be obvious, but the result above is actually a list of 100 strings. That's why there are `[ ]` with numbers showing the index of the right-most elements. In R, lists where all elements are of the same data type are called _vectors_ (to confuse you, there's also something else called a `list` in R, but that's for another time).
+
+I've gone ahead and created a numeric vector for you. It's called `temp` and contains the max C° temperature in Hyderabad, India for each day in June 2023 ([source](https://data.opencity.in/dataset/daily-temperature-70-years-data-for-major-indian-cities)). In R you can print out a representation of whatever you want to look at by simply writing its name.
+
+<div class="task-callout">Take a look at the data in `temp`.</div>
+
+```{webr}
+#| setup: true
+#| exercise: ex7
+temp <- c(
+  38.9, 40.6, 40.8, 42.4, 38.1, 37.6, 39.6, 40, 39.7, 39.7, 39.2, 
+  37.8, 38.8, 39.4, 39.1, 38.6, 39.4, 39, 39.2, 37.8, 38.8, 38.9, 
+  36, 33.2, 31.8, 30.8, 31.2, 31.6, 32.8, 32.7
+)
+```
+
 ```{webr}
 #| exercise: ex7
+#| envir: temp
 
 ```
 
 ```{webr}
 #| exercise: ex7
 #| check: true
-if(is.character(.result)) {
-  list(correct = TRUE, message = paste0("\"", .result, "\" is indeed a string!"))
+if(all(.result == temp)) {
+  list(correct = TRUE, message = "Indeed, a lot of temperatures!")
 } else {
-  list(correct = FALSE, message = "Use quotes to define a string \"like this!\"")
+  list(correct = FALSE, message = "Just write the name of the vector, and nothing else. That is: temp")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex8"}
+
+But, there are 30 days in June, right? Are there really 30 temperatures in `temp`? 
+
+<div class="task-callout">Use the `length()` function to count the number of elements in `temp`.</div>
+
+
+```{webr}
+#| exercise: ex8
+#| envir: temp
+
+```
+
+```{webr}
+#| exercise: ex8
+#| check: true
+if(is.numeric(.result) && grepl("length", .user_code) && .result == length(temp)) {
+  list(correct = TRUE, message = "The correct number of days!")
+} else {
+  list(correct = FALSE, message = "Afraid not. If x is a vector then you would write length(x) to get its, well, length.")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex9"}
+
+And what was the highest temperature in Hyderabad in June 2023?
+
+<div class="task-callout">Use `max()` to get the highest value in `temp`.</div>
+
+
+```{webr}
+#| exercise: ex9
+#| envir: temp
+
+```
+
+```{webr}
+#| exercise: ex9
+#| check: true
+if(is.numeric(.result) && grepl("max", .user_code) && .result == max(temp)) {
+  list(correct = TRUE, message = "Hot! And that's 108.3 F for you Farenheiters.")
+} else {
+  list(correct = FALSE, message = "No... If the length of temp is length(temp), then the max of temp is...")
 }
 ```
 
 ::::
 
+:::: {.instructions-and-exercise exercise="ex10"}
+
+But it wasn't 42.4 C° every day, I hope. What was the mean temperature?
+
+<div class="task-callout">Use, you guest it, `mean()` to get the mean/average of `temp` </div>
+
+
+```{webr}
+#| exercise: ex10
+#| envir: temp
+
+```
+
+```{webr}
+#| exercise: ex10
+#| check: true
+if(is.numeric(.result) && grepl("mean", .user_code) && .result == mean(temp)) {
+  list(correct = TRUE, message = "You're getting the hang of this!")
+} else {
+  list(correct = FALSE, message = "No... If the length of temp is length(temp), the max of temp is max(temp), then the mean of temp is...")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex11"}
+
+As you've seen, there are many things you can do, once you've gotten some data into R. One thing that's always nice to do with new data is to **plot it**!
+
+<div class="task-callout">Use `plot()` to make a simple time-series plot of `temp`.</div>
+
+
+```{webr}
+#| exercise: ex11
+#| envir: temp
+
+```
+
+```{webr}
+#| exercise: ex11
+#| check: true
+errors <- Filter(\(x) inherits(x, "error"), .evaluate_result)
+if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl("temp", .user_code)) {
+  list(correct = TRUE, message = "Ok! A heat wave early June, that then dropped after three weeks.")
+} else {
+  list(correct = FALSE, message = "Don't give up! Using plot() on temp is just like using length(), max(), and mean().")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex12"}
+
+R is great for making beautiful plots, but that usually takes a bit more effort. But, as the last exercise in this chapter, let's spiff it up just a little bit!
+
+Many functions in R can be given _optional_ arguments, and `plot()` has many that changes the appearance of the plot. Arguments to a function can also be given in the form `the_argument_name = "the value"`, and then the argument order doesn't matter anymore.
+
+<div class="task-callout">For the `plot` arguments below, replace `______` between the `""` to your liking.</div>
+
+
+```{webr}
+#| exercise: ex12
+#| envir: temp
+#| startover: true
+plot(
+  temp,
+  main = "______", # The main title of the plot
+  xlab = "______", # The x-axis label
+  col = "______",  # The color, say, "green", "blue", or "orange"
+  type = "______"  # "p" for point, "l" for line, or "b" for both
+)
+
+# What are the # doing here? Those are comments. And this is too!
+# R will happily ignore any text after a # to the end of the line.
+```
+
+
+```{webr}
+#| exercise: ex12
+#| check: true
+errors <- Filter(\(x) inherits(x, "error"), .evaluate_result)
+if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl("temp", .user_code)) {
+  list(correct = TRUE, message = "Nice! A splash of color!")
+} else {
+  list(correct = FALSE, message = "Just fill in values between the \"\", but keep the quotes! If you messed up the code, just press 'Start Over'.")
+}
+```
+
+::::
 :::: {.completed-chapter-instructions}
 
-Great work. Now go to the next chapter!
+Great work! Now go to the next chapter.
 
 ::::
