@@ -29,6 +29,7 @@ format:
       packages:
         - base
       cell-options:
+        persist: true
         caption: 
         warning: false
     theme: cosmo
