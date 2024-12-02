@@ -89,11 +89,9 @@ ul.task-list li input[type="checkbox"] {
 document.addEventListener("DOMContentLoaded", () => {
   const chapterPath = window.location.pathname;
   const completedExercisesKey = `completedExercises-${chapterPath}`;
-  const editedAnswersKey = `editedExerciseText-${chapterPath}`;
   const completedChaptersKey = 'completedChapters';
 
   const completedExercises = JSON.parse(localStorage.getItem(completedExercisesKey)) || [];
-  const editedAnswers = JSON.parse(localStorage.getItem(editedAnswersKey)) || {};
   const completedChapters = JSON.parse(localStorage.getItem(completedChaptersKey)) || [];
   
   
@@ -121,65 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function monitorEdits(cmContent) {
-    const observer = new MutationObserver(() => {
-      const exerciseId = cmContent.closest('.cell').getAttribute('data-exercise');
-      if (exerciseId) {
-        const editedText = cmContent.innerText;
-        editedAnswers[exerciseId] = editedText;
-        localStorage.setItem(editedAnswersKey, JSON.stringify(editedAnswers));
-      }
-    });
-
-    observer.observe(cmContent, {
-      childList: true,
-      subtree: true,
-      characterData: true,
-    });
-  }
-
-  function restoreAndMonitorAnswer(cmContent) {
-    // Restore edited text, if any.
-    const exerciseId = cmContent.closest('.cell').getAttribute('data-exercise');
-    if (editedAnswers[exerciseId]) {
-      cmContent.innerText = editedAnswers[exerciseId];
-    }
-    
-    // Monitor the code edit area for changes and save them to local storage.
-    const observer = new MutationObserver(() => {
-      const exerciseId = cmContent.closest('.cell').getAttribute('data-exercise');
-      if (exerciseId) {
-        const editedAnswer = cmContent.innerText;
-        editedAnswers[exerciseId] = editedAnswer;
-        localStorage.setItem(editedAnswersKey, JSON.stringify(editedAnswers));
-      }
-    });
-
-    observer.observe(cmContent, {childList: true, subtree: true, characterData: true});
-  }
-  
-  // As the answers are dynamically loaded, we need to observe the DOM for changes.
-  // The reason the class name is cm-content, is because the code editor uses CodeMirror.
-  function observeDynamicAnswers() {
-    const observer = new MutationObserver((mutationsList) => {
-      mutationsList.forEach((mutation) => {
-        if (mutation.type === 'childList') {
-          mutation.addedNodes.forEach((node) => {
-            if (node.tagName === 'DIV') {
-              if (node.classList.contains('cm-content')) {
-                restoreAndMonitorAnswer(node);
-              } else {
-                node.querySelectorAll('.cm-content').forEach(restoreAndMonitorAnswer);
-              }
-            }
-          });
-        }
-      });
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
-
   function adjacentExerciseId(exerciseId, offset) {
     return exerciseId.replace(/(\d+)$/, (_, num) => String(Number(num) + offset));
   }
@@ -204,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const exerciseId = div.getAttribute('data-exercise');
         const isVisible = isPreviousExerciseCompleted(exerciseId);
         toggleDivVisibility(div, isVisible);
+        //toggleDivVisibility(div, true); // For debugging
       });
       
     const completedChapterInstructionsDiv = document.querySelector(`div.completed-chapter-instructions`);
@@ -267,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       div.style.opacity = 1;
       div.style.pointerEvents = 'auto';
+      div.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" })
     }, 1000);
   }
   
@@ -317,9 +258,25 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(document.body, { childList: true, subtree: true });
   }
   
+  function resetChapterEditorCode() {
+    const keyPrefix = 'editor-' + window.location.origin + window.location.pathname;
+  
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith(keyPrefix)) {
+        keysToRemove.push(key);
+      }
+    }
+  
+    for (const key of keysToRemove) {
+      localStorage.removeItem(key);
+    }
+  }
+  
   function resetChapter() {
     localStorage.removeItem(completedExercisesKey);
-    localStorage.removeItem(editedAnswersKey);
+    resetChapterEditorCode();
     if(activeChapterLinkText) {
       localStorage.setItem(completedChaptersKey, 
         JSON.stringify(completedChapters.filter((chapter) => chapter !== activeChapterLinkText))
@@ -332,12 +289,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function initializeResetButton() {
     const resetButton = document.querySelector('#reset-exercise-button');
     if (resetButton) {
-      resetButton.addEventListener('click', resetChapter);
+      resetButton.addEventListener('click', () => {
+        if (confirm('Are you sure you want to reset the chapter?')) {
+          resetChapter();
+        }
+      });
     }
   }
-
   markCompletedChapters() 
-  observeDynamicAnswers();
   observeExerciseCompletion();
   initializeInstructionDivs();
   initializeResetButton();
@@ -417,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <div style="text-align: right;">
-<p><button id="reset-exercise-button">Restart chapter</button></p>
+<p><button id="reset-exercise-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
 </div><p>Made by me, Rasmus Bååth. My webpage is: <a href="https://www.sumsar.net/">www.sumsar.net</a>.</p>
 
 
