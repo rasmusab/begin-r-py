@@ -1,4 +1,5 @@
 ---
+
 title: "R starts here!"
 format: 
   live-html:
@@ -33,9 +34,10 @@ if(is.numeric(.result) && grepl("\\+", .user_code)) {
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex2"}
 
-Friends of `+`, like `-`, `/`, and `*` works like expected. R also includes a large number of mathematical functions, like `log()`, `exp()`, and `sqrt()`. To _call_ a function you write its name followed by the _argument_ between parentheses, like `log(2.72)` or `sin(1.57)`.
+Friends of `+`, like `-`, `/`, and `*` work as expected. R also includes a large number of mathematical functions, like `log()`, `exp()`, and `sqrt()`. To _call_ a function you write its name followed by the _argument_ between parentheses, like `log(2.72)` or `sin(1.57)`.
 
 <div class="task-callout">Calculate the square root of `1764` using `sqrt()`.</div>
 
@@ -55,9 +57,9 @@ if(is.numeric(.result) && .result == 42) {
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex3"}
 
-Functions can have more than one argument, which, are, then, separated, by, commas. For example, `max(1, 3, 5, 4, 2)` returns the highest of it's arguments: `5`. Another function that can take many arguments is `sum()`.
 
 <div class="task-callout">Use `sum()` to sum up several large numbers, I don't care which, but they should total more than 1,000,000!</div>
 
@@ -79,9 +81,10 @@ if(is.numeric(.result) && grepl("sum", .user_code) && .result >= 1000000) {
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex4"}
 
-R can work with more than numbers and there are many other types of data, or _data types_, in R. A pieces of text, often called a _string_, is written by putting the text "into quotes".
+R can work with more than numbers and there are many other types of data, or _data types_, in R. A piece of text, often called a _string_, is written by putting the text "into quotes".
 
 <div class="task-callout">Try writing a string, any string, in the code cell below. I'll repeat it three times.</div>
 
@@ -102,6 +105,7 @@ if(is.character(.result)) {
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex5"}
 
 Like with numbers, you can also apply functions to strings. For example, `tolower()` turns all characters into lower case.
@@ -111,23 +115,24 @@ Like with numbers, you can also apply functions to strings. For example, `tolowe
 ```{webr}
 #| exercise: ex5
 #| startover: true
-"BEEN SEARCHING FOR HOURS, WHERE'S KAFKA'S THE PROCESS?"
+"BEEN SEARCHING FOR HOURS, WHERE'S KAFKA'S THE TRIAL?"
 ```
 
 ```{webr}
 #| exercise: ex5
 #| check: true
 if(is.character(.result) && grepl("tolower", .user_code) && .result == tolower(.result)) {
-  list(correct = TRUE, message = "Great! You've calmed down. Unfortunatlely, the last copy just got borrowed by a giant bug!")
+  list(correct = TRUE, message = "Great! You've calmed down. Unfortunately, the last copy just got borrowed by a giant bug!")
 } else {
   list(correct = FALSE, message = "Not exactly. For example, toupper(\"I'm not screaming!\") will return \"I'M NOT SCREAMING!\". But here, use tolower() instead.")
 }
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex6"}
 
-And, of course, there are functions that takes both numbers and strings as arguments. But the order of the arguments is important! For example, for `rep()` the first argument is the value to repeat, and the second argument is the number of repetitions. 
+And, of course, there are functions that take both numbers and strings as arguments. But the order of the arguments is important! For example, for `rep()` the first argument is the value to repeat, and the second argument is the number of repetitions. 
 
 <div class="task-callout">Repeat a moderately dirty word a 100 times using `rep()`.</div>
 
@@ -147,6 +152,7 @@ if(is.character(.result) && length(.result) == 100) {
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex7"}
 
 It might not be obvious, but the result above is actually a list of 100 strings. That's why there are `[ ]` with numbers showing the index of the right-most elements. In R, lists where all elements are of the same data type are called _vectors_ (to confuse you, there's also something else called a `list` in R, but that's for another time).
@@ -182,6 +188,7 @@ if(all(.result == temp)) {
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex8"}
 
 But, there are 30 days in June, right? Are there really 30 temperatures in `temp`? 
@@ -206,6 +213,7 @@ if(is.numeric(.result) && grepl("length", .user_code) && .result == length(temp)
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex9"}
 
 And what was the highest temperature in Hyderabad in June 2023?
@@ -223,7 +231,7 @@ And what was the highest temperature in Hyderabad in June 2023?
 #| exercise: ex9
 #| check: true
 if(is.numeric(.result) && grepl("max", .user_code) && .result == max(temp)) {
-  list(correct = TRUE, message = "Hot! And that's 108.3 F for you Farenheiters.")
+  list(correct = TRUE, message = "Hot! And that's 108.3 F for you Fahrenheiters.")
 } else {
   list(correct = FALSE, message = "No... If the length of temp is length(temp), then the max of temp is...")
 }
@@ -235,7 +243,7 @@ if(is.numeric(.result) && grepl("max", .user_code) && .result == max(temp)) {
 
 But it wasn't 42.4 C° every day, I hope. What was the mean temperature?
 
-<div class="task-callout">Use, you guest it, `mean()` to get the mean/average of `temp` </div>
+<div class="task-callout">Use, you guessed it, `mean()` to get the mean/average of `temp` </div>
 
 
 ```{webr}
@@ -255,6 +263,7 @@ if(is.numeric(.result) && grepl("mean", .user_code) && .result == mean(temp)) {
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex11"}
 
 As you've seen, there are many things you can do, once you've gotten some data into R. One thing that's always nice to do with new data is to **plot it**!
@@ -280,11 +289,12 @@ if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl
 ```
 
 ::::
+
 :::: {.instructions-and-exercise exercise="ex12"}
 
 R is great for making beautiful plots, but that usually takes a bit more effort. But, as the last exercise in this chapter, let's spiff it up just a little bit!
 
-Many functions in R can be given _optional_ arguments, and `plot()` has many that changes the appearance of the plot. Arguments to a function can also be given in the form `the_argument_name = "the value"`, and then the argument order doesn't matter anymore.
+Many functions in R can be given _optional_ arguments, and `plot()` has many that change the appearance of the plot. Arguments to a function can also be given in the form `the_argument_name = "the value"`, and then the argument order doesn't matter anymore.
 
 <div class="task-callout">For the `plot` arguments below, replace `______` between the `""` to your liking.</div>
 
@@ -318,6 +328,7 @@ if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl
 ```
 
 ::::
+
 :::: {.completed-chapter-instructions}
 
 Great work! Now go to the next chapter.
