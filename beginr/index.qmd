@@ -59,6 +59,7 @@ if(is.numeric(.result) && .result == 42) {
 
 :::: {.instructions-and-exercise exercise="ex3"}
 
+Functions can have more than one argument, which, are, then, separated, by, commas. For example, `max(1, 3, 5, 4, 2)` returns the highest of it's arguments: `5`. Another function that can take many arguments is `sum()`.
 
 <div class="task-callout">Use `sum()` to sum up several large numbers, I don't care which, but they should total more than 1,000,000!</div>
 

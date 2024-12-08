@@ -18,11 +18,8 @@ website:
       </button>
     </div>
   page-footer: 
-    left: "Made by [Rasmus Bååth](https://www.sumsar.net)" 
-    right: 
-      - icon: github
-        href: https://github.com/rasmusab/begin-r-py
-
+    left:  "Made by [Rasmus Bååth](https://www.sumsar.net)" 
+  
 format: 
   live-html:
     webr:
