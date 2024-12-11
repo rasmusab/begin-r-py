@@ -1,0 +1,31 @@
+---
+title: "R playground"
+format: 
+  live-html:
+    webr:
+      cell-options:
+        startover: true
+      packages:
+        - base
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+A playground where you can run any R code you want! 
+
+```{webr}
+#| min-lines: 12
+#| max-lines: 16
+# Just a little plot to get you started, feel free to delete! :)
+n <- 100        # Number of points
+turns <- 8     # How many rotations does the spiral make?
+t <- seq(0, turns*pi, length.out = n)
+x <- t * cos(t)
+y <- t * sin(t)
+
+# - col: The color, e.g. "red", "blue", "green", or "#FF00FF"
+# - pch: The plotting symbol, say 1, 2, "*", or "S"
+# - cex: The size, e.g. 0.5 (smaller), 2 (bigger)
+plot(x, y, col="purple", pch=1, cex=2, main="A colorful spiral")
+```
+

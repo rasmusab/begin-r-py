@@ -1,0 +1,171 @@
+---
+title: "Vectors and variables"
+format: 
+  live-html:
+    webr:
+      cell-options:
+        startover: false
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+![](under-construction.gif)
+
+:::: {.instructions-and-exercise exercise="ex1"}
+
+```{webr}
+#| exercise: ex1
+
+```
+
+```{webr}
+#| exercise: ex1
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex2"}
+
+```{webr}
+#| exercise: ex2
+
+```
+
+```{webr}
+#| exercise: ex2
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex3"}
+
+```{webr}
+#| exercise: ex3
+
+```
+
+```{webr}
+#| exercise: ex3
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex4"}
+
+```{webr}
+#| exercise: ex4
+
+```
+
+```{webr}
+#| exercise: ex4
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex5"}
+
+```{webr}
+#| exercise: ex5
+
+```
+
+```{webr}
+#| exercise: ex5
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex6"}
+
+```{webr}
+#| exercise: ex6
+
+```
+
+```{webr}
+#| exercise: ex6
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex7"}
+
+```{webr}
+#| exercise: ex7
+
+```
+
+```{webr}
+#| exercise: ex7
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex8"}
+
+```{webr}
+#| exercise: ex8
+
+```
+
+```{webr}
+#| exercise: ex8
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+
+:::: {.completed-chapter-instructions}
+
+Great work! Now go to the next chapter.
+
+::::

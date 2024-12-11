@@ -9,6 +9,17 @@ website:
     contents:
       - text: "1. R starts here!"
         href: index.qmd
+      - text: "2. Vectors and variables"
+        href: vectors-and-variables.qmd
+      - text: "3. Data files and data frames"
+        href: data-files-and-data-frames.qmd
+      - text: "4. Visualization"
+        href: visualization.qmd
+      - text: "5. And all the rest"
+        href: and-all-the-rest.qmd
+      - text: "---"
+      - text: "R playground"
+        href: playground.qmd
       - text: "About"
         href: about.qmd
   body-header: |
