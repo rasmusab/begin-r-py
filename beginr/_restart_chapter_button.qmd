@@ -1,0 +1,5 @@
+<div style="text-align: right;">
+  <button id="restart-chapter-button" style="border-width: 0px; text-decoration: underline;">
+    Restart chapter
+  </button>
+</div>

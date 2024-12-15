@@ -287,10 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   function initializeResetButton() {
-    const resetButton = document.querySelector('#reset-exercise-button');
+    const resetButton = document.querySelector('#restart-chapter-button');
     if (resetButton) {
       resetButton.addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset the chapter?')) {
+        if (confirm('Are you sure you want to restart the chapter?')) {
           resetChapter();
         }
       });
@@ -407,8 +407,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <div style="text-align: right;">
-<p><button id="reset-exercise-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
-</div><p><img src="under-construction.gif" class="img-fluid"></p>
+<p><button id="restart-chapter-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
+</div>
+<p><img src="under-construction.gif" class="img-fluid"></p>
 <div class="instructions-and-exercise" data-exercise="ex1">
 <div class="cell" data-exercise="ex1">
 <div>

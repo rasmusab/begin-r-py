@@ -287,10 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   function initializeResetButton() {
-    const resetButton = document.querySelector('#reset-exercise-button');
+    const resetButton = document.querySelector('#restart-chapter-button');
     if (resetButton) {
       resetButton.addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset the chapter?')) {
+        if (confirm('Are you sure you want to restart the chapter?')) {
           resetChapter();
         }
       });
@@ -407,8 +407,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <div style="text-align: right;">
-<p><button id="reset-exercise-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
-</div><div class="instructions-and-exercise" data-exercise="ex1">
+<p><button id="restart-chapter-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
+</div>
+<div class="instructions-and-exercise" data-exercise="ex1">
 <p>R is a powerful programming language that excels at data analysis and statistics. But really, it can do almost <strong>anything</strong>!</p>
 <p>But let’s start simple: Out-of-the-box R can do everything you’d expect a calculator to do. Here’s a code cell where you can put in any R code you want.</p>
 <div class="task-callout">

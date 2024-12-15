@@ -287,10 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   function initializeResetButton() {
-    const resetButton = document.querySelector('#reset-exercise-button');
+    const resetButton = document.querySelector('#restart-chapter-button');
     if (resetButton) {
       resetButton.addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset the chapter?')) {
+        if (confirm('Are you sure you want to restart the chapter?')) {
           resetChapter();
         }
       });
@@ -406,9 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </header>
 
 
-<div style="text-align: right;">
-<p><button id="reset-exercise-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
-</div><p>A playground where you can run any R code you want!</p>
+<p>A playground where you can run any R code you want!</p>
 <div class="cell" data-min-lines="12" data-max-lines="16">
 <div>
 <div id="webr-1" class="exercise-cell">

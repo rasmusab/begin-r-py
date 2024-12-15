@@ -287,10 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   function initializeResetButton() {
-    const resetButton = document.querySelector('#reset-exercise-button');
+    const resetButton = document.querySelector('#restart-chapter-button');
     if (resetButton) {
       resetButton.addEventListener('click', () => {
-        if (confirm('Are you sure you want to reset the chapter?')) {
+        if (confirm('Are you sure you want to restart the chapter?')) {
           resetChapter();
         }
       });
@@ -406,9 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </header>
 
 
-<div style="text-align: right;">
-<p><button id="reset-exercise-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
-</div><p>This is a short 1-2h introduction to the R programming language and was made by me, <a href="https://www.sumsar.net/about/">Rasmus Bååth</a>. It’s aimed at people who never tried out R before and is meant to give you a <em>feeling</em> for what programming in R is and what R can do. If you use it in a course, please do send me a message (<code>rasmus.baath@gmail.com</code>) and let me know how it went.</p>
+<p>This is a short 1-2h introduction to the R programming language and was made by me, <a href="https://www.sumsar.net/about/">Rasmus Bååth</a>. It’s aimed at people who never tried out R before and is meant to give you a <em>feeling</em> for what programming in R is and what R can do. If you use it in a course, please do send me a message (<code>rasmus.baath@gmail.com</code>) and let me know how it went.</p>
 <p>This introduction was made possible thanks to the <a href="https://quarto.org/">quarto</a>, <a href="https://docs.r-wasm.org/webr/latest/">webr</a>, and <a href="https://r-wasm.github.io/quarto-live/">quarto-live</a> projects. The full source code can be found <a href="https://github.com/rasmusab/begin-r-py">on GitHub</a>.</p>
 
 
