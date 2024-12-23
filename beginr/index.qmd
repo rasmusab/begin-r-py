@@ -5,6 +5,7 @@ format:
     webr:
       cell-options:
         startover: false
+        completion:	false
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -293,7 +294,7 @@ if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl
 
 :::: {.instructions-and-exercise exercise="ex12"}
 
-R is great for making beautiful plots, but that usually takes a bit more effort. But, as the last exercise in this chapter, let's spiff it up just a little bit!
+R is great for making beautiful plots, but that usually takes a bit more effort. But, as the last exercise in this chapter, let's spiff up this plot, just a little bit!
 
 Many functions in R can be given _optional_ arguments, and `plot()` has many that change the appearance of the plot. Arguments to a function can also be given in the form `the_argument_name = "the value"`, and then the argument order doesn't matter anymore.
 
@@ -332,6 +333,6 @@ if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl
 
 :::: {.completed-chapter-instructions}
 
-Great work! Now go to the next chapter.
+Great work! Now on to 👉[Chapter 2: Vectors and varialbes](/vectors-and-variables)👈
 
 ::::
