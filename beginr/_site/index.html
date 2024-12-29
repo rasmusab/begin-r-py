@@ -75,9 +75,14 @@ ul.task-list li input[type="checkbox"] {
   div.task-callout {
   
   }
+  
   div.task-callout::before {
     content: "📝 ";
     margin-right: 5px;
+  }
+  
+  div.cm-gutters {
+    display: none !important;
   }
 }
 </style>
@@ -415,13 +420,13 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="task-callout">
 But for now, just add two numbers together and press <strong>▶ Run Code</strong>.
 </div>
-<div class="cell" data-exercise="ex1">
+<div class="cell" data-exercise="ex1" data-caption="👇 Enter R code in this box below 👇">
 <div>
 <div id="webr-1" class="exercise-cell">
 
 </div>
 <script type="webr-1-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDEiLCJwZXJzaXN0Ijp0cnVlLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiIifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiLwn5GHIEVudGVyIFIgY29kZSBpbiB0aGlzIGJveCBiZWxvdyDwn5GHIiwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiIn0=
 </script>
 </div>
 </div>

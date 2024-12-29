@@ -21,6 +21,7 @@ But let's start simple: Out-of-the-box R can do everything you'd expect a calcul
 
 ```{webr}
 #| exercise: ex1
+#| caption: "👇 Enter R code in this box below 👇" 
 
 ```
 
