@@ -11,13 +11,21 @@ format:
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 {{< include _restart_chapter_button.qmd >}}
 
-
-![](under-construction.gif)
+* Creating vectors, 1:5, c(), etc. and also introduce the concept of variables.
+* Simple vectorized example. 1:5 ^ 
+* Assignment
 
 :::: {.instructions-and-exercise exercise="ex1"}
 
+Last chapter we saw an example of a _vector_: A sequence of data of the same type, for example, a sequence of numbers or a sequence of strings. When analyzing data, you almost never deal with single numbers, and the reason you need to analyze the data in the first place is likely because there are heaps of it! That's why handling sequences of strings and numbers are central to data analysis and why vectors are core to R.
+
+Let me show you how central vectors are to R. 
+
+<div class="task-callout">Type any number in the box below and press **▶ Run Code**.</div>
+
 ```{webr}
 #| exercise: ex1
+#| caption: "👇 Enter R code in this box below 👇" 
 
 ```
 
@@ -25,18 +33,35 @@ format:
 #| exercise: ex1
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.numeric(.result) && grepl("\\d", .user_code)) {
+  list(correct = TRUE, message = "That sure looks like a number!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Try again! Just type any number (and nothing else) in the textbox.")
 }
 ```
+
+
 
 ::::
 :::: {.instructions-and-exercise exercise="ex2"}
 
+But it's *not* just a number. It's actually a one-item vector, with a single number. In R, even single numbers are vectors. 
+
+Sometimes, you would want to create new vectors longer that a single number. This can be done using the `c()` function that `c`ombines many values. For example, `c(2, 3, 5, 7, 9)` will create a numeric vector with all prime numbers between 1 and 10. 
+
+<div class="task-callout">Create a numeric vector using `c()` with at least 5 items. (Btw, I'll check if any of them are prime numbers.)</div>
+
+```{webr}
+#| setup: true
+#| exercise: ex2
+
+# From here: https://stackoverflow.com/a/23266245/
+is_prime <- Vectorize(\(n) n >= 2 && (n == 2L || all(n %% 2L:ceiling(sqrt(n)) != 0)))
+```
+
 ```{webr}
 #| exercise: ex2
+#| envir: primes
 
 ```
 
@@ -44,18 +69,29 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 #| exercise: ex2
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.numeric(.result) && grepl("c", .user_code) && length(.result) >= 5) {
+  prime_numbers <- .result[is_prime(.result)]
+  success_message <- if(length(prime_numbers) == 0) {
+    "A vector of numbers, for sure! But no prime numbers in sight..." 
+  } else {
+    paste("Nice! I spy the following prime numbers: ", paste(prime_numbers, collapse = ", "))
+  }
+  list(correct = TRUE, message = success_message)
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Not quite. Just try writing something like c(1, 4, 12), but with 2 more numbers.")
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex3"}
 
+There are many functions that help you create vectors in R, one shortcut is the colon operator where, say, `10:30` would create the vector `10, 11, 12, ..., 28, 29, 30`.
+
+<div class="task-callout">Use the colon `:` operator to create the vector `1, 2, 3, ..., 98, 99, 100`. (I'll, again, figure out which are prime.)</div>
+
 ```{webr}
 #| exercise: ex3
+#| envir: primes
 
 ```
 
@@ -63,53 +99,66 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 #| exercise: ex3
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.numeric(.result) && grepl(":", .user_code) && all(.result == 1:100)) {
+  prime_numbers <- .result[is_prime(.result)]
+  list(correct = TRUE, message = paste("So many primes! Here goes: ", paste(prime_numbers, collapse = ", ")))
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Nope. For example, 1:5 would give you 1, 2, 3, 4, 5. But now you want 1 to a 100...")
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex4"}
 
+Many functions in R are _vectorized_, that is, they work both on single values, as well as vectors. For example, `nchar("pizza")` returns `5`,  the `n`umber of `char`acters in `"pizza"`. But `nchar()` also works on vectors of strings.  
+
+<div class="task-callout">Use `nchar()` to count the number of characters in each word.</div>
+
 ```{webr}
 #| exercise: ex4
-
+#| startover: true
+c("I", "go", "eat", "some", "tasty", "pizzas", "tonight")
 ```
 
 ```{webr}
 #| exercise: ex4
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.numeric(.result) && grepl("nchar", .user_code) && all(.result == 1:7)) {
+  list(correct = TRUE, message = "Cowabunga!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = 'Not quite. For example, nchar(c("I", "like",  "pizza")) would give you 1, 4, 5')
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex5"}
 
+And, especially, all math operators (`+`, `*`, etc.) are vectorized. 
+
+<div class="task-callout">Make the below output the vector `c(15, 25, 35, 45, 55, 65, 75, 85, 95, 105)` by only changing the numbers in `* 1 + 0` (leave `1:10` alone!)   </div>
+
 ```{webr}
 #| exercise: ex5
-
+#| startover: true
+1:10 * 1 + 0
 ```
 
 ```{webr}
 #| exercise: ex5
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.numeric(.result) && grepl("1:10", .user_code) && all(.result == 1:10 * 10 + 5)) {
+  list(correct = TRUE, message = "Vectoramazing!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Try again! Tip: 1:10 * 10 + 2 would give you 12, 22, 32, 42, 52, etc.")
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex6"}
+
+<div class="task-callout">...</div>
 
 ```{webr}
 #| exercise: ex6
@@ -130,6 +179,8 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex7"}
 
+<div class="task-callout">...</div>
+
 ```{webr}
 #| exercise: ex7
 
@@ -148,6 +199,8 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 
 ::::
 :::: {.instructions-and-exercise exercise="ex8"}
+
+<div class="task-callout">...</div>
 
 ```{webr}
 #| exercise: ex8
