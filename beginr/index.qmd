@@ -334,6 +334,6 @@ if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl
 
 :::: {.completed-chapter-instructions}
 
-Great work! Now on to 👉[Chapter 2: Vectors and varialbes](/vectors-and-variables)👈
+Great work! Now on to 👉[Chapter 2: Vectors and variables](/vectors-and-variables.html)👈
 
 ::::

@@ -1,5 +1,5 @@
 ---
-title: "Vectors and variables"
+title: "And all the rest"
 format: 
   live-html:
     webr:

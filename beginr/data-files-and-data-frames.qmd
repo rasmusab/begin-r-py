@@ -1,5 +1,5 @@
 ---
-title: "Vectors and variables"
+title: "Data files and data frames"
 format: 
   live-html:
     webr:

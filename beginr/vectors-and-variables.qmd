@@ -13,11 +13,11 @@ format:
 
 :::: {.instructions-and-exercise exercise="ex1"}
 
-Last chapter we saw an example of a _vector_: A sequence of data of the same type, for example, a sequence of numbers or a sequence of strings. When analyzing data, you almost never deal with single numbers, and the reason you need to analyze the data in the first place is likely because there are heaps of it! That's why handling sequences of strings and numbers are central to data analysis and why vectors are core to R.
+Last chapter, we saw an example of a _vector_: a sequence of data of the same type, for example, a sequence of numbers or a sequence of strings. When analyzing data, you almost never deal with single numbers, and the reason you need to analyze the data in the first place is likely because there are heaps of it! That's why handling sequences of strings and numbers is central to data analysis and why vectors are core to R.
 
 Let me show you how central vectors are to R. 
 
-<div class="task-callout">Type any number in the box below and press **▶ Run Code**.</div>
+<div class="task-callout">Type **any** number in the box below and press **▶ Run Code**.</div>
 
 ```{webr}
 #| exercise: ex1
@@ -41,11 +41,11 @@ if(is.numeric(.result) && grepl("\\d", .user_code)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex2"}
 
-But it's *not* just a number. It's actually a one-item vector, with a single number. In R, even single numbers are vectors. 
+But it's *not* just a number. It's actually a one-item vector with a single number. In R, even single numbers are vectors. 
 
-Sometimes, you would want to create new vectors longer that a single number. This can be done using the `c()` function that `c`ombines many values. For example, `c(2, 3, 5, 7, 9)` will create a numeric vector with all prime numbers between 1 and 10. 
+Sometimes, you would want to create new vectors longer than a single number. This can be done using the `c()` function that `c`ombines many values. For example, `c(2, 3, 5, 7, 9)` will create a numeric vector with all prime numbers between 1 and 10. 
 
-<div class="task-callout">Create a numeric vector using `c()` with at least 5 items. (Btw, I'll check if any of them are prime numbers.)</div>
+<div class="task-callout">Create a numeric vector using `c()` with at least 5 items. (By the way, I'll check if any of them are prime numbers.)</div>
 
 ```{webr}
 #| setup: true
@@ -106,7 +106,7 @@ if(is.numeric(.result) && grepl(":", .user_code) && all(.result == 1:100)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex4"}
 
-Many functions in R are _vectorized_, that is, they work both on single values, as well as vectors. For example, `nchar("pizza")` returns `5`,  the `n`umber of `char`acters in `"pizza"`. But `nchar()` also works on vectors of strings.  
+Many functions in R are _vectorized_, that is, they work both on single values, as well as vectors. For example, `nchar("pizza")` returns `5`, the `n`umber of `char`acters in `"pizza"`. But `nchar()` also works on vectors of strings.  
 
 <div class="task-callout">Use `nchar()` to count the number of characters in each word.</div>
 
@@ -154,9 +154,9 @@ if(is.numeric(.result) && grepl("1:10", .user_code) && all(.result == 1:10 * 10 
 ::::
 :::: {.instructions-and-exercise exercise="ex6"}
 
-When doing math with two vectors of the same length the operation will be applied to each corresponding pair of values. It's easier than it sounds. For example, `c(10, 20, 30) + c(1, 2, 3)` gives `11, 22, 33` and `11:14 - 1:4` gives `10, 10, 10, 10`. 
+When doing math with two vectors of the same length, the operation will be applied to each corresponding pair of values. It's easier than it sounds. For example, `c(10, 20, 30) + c(1, 2, 3)` gives `11, 22, 33` and `11:14 - 1:4` gives `10, 10, 10, 10`. 
 
-<div class="task-callout">Change the code below to subtract the quarterly sales from the expenses to get the quarterly revenue.</div>
+<div class="task-callout">Change the code below to subtract the expenses from the quarterly sales to get the quarterly revenue.</div>
 
 ```{webr}
 #| exercise: ex6
@@ -174,7 +174,12 @@ c(106, 122, 96, 98)
 
 quarterly_revenue <- c(120, 150, 78, 154) - c(106, 122, 96, 98)
 
-if(is.numeric(.result) && all(.result == quarterly_revenue)) {
+correct_results <- Filter(
+  \(x) inherits(x, "result") && is.numeric(x$value) && all(x$value == quarterly_revenue),
+  .evaluate_result
+)
+
+if(length(correct_results) >= 1) {
   list(correct = TRUE, message = "Yes! A weak Q3, but we made up for it with the strong Q4!")
 } else {
   list(correct = FALSE, message = "Not quite. Like this, c(1, 2, 3) - c(5, 2, 7), but with the correct numbers.") 
@@ -184,7 +189,7 @@ if(is.numeric(.result) && all(.result == quarterly_revenue)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex7"}
 
-Moving around the numbers directly, like you did above, _can_ work, but gets messy. 
+Moving around the numbers directly, like you did above, _can_ work, but it gets messy. 
 It can be made more organized by _assigning_ the values to _variables_. This needs explanation, but first, let's look at an example:
 
 ```r
@@ -193,48 +198,55 @@ pi <- 3.141593
 
 Here we're taking the value (`3.141593`) and by using `<-`, the assignment operator, we're assigning it to ("putting it into") a variable named `pi`. Now, instead of writing `2 * 3.141593 * 5`, we can write `2 * pi * 5`. The assignment operator is made up of a `<` and a `-`, and is meant to look like a left-pointing arrow.
 
-Varible can be given both short and long names, but can't include spaces. Instead, it's common to use underscore (`_`) to separate words in longer names.
+Variables can be given both short and long names, but they can't include spaces. Instead, it's common to use underscores (`_`) to separate words in longer names.
 
-<div class="task-callout">Again, calculate the quarterly revenue by replacing the `______` placeholder. But this time, assign the result to the variable `quarterly_revenue`.</div>
+<div class="task-callout">Again, calculate the quarterly revenue. But this time by replacing the `______` placeholder and assigning the result to the variable `quarterly_revenue`.</div>
 
 ```{webr}
 #| exercise: ex7
 #| startover: true
-quartely_sales <- c(120, 150, 78, 104)
+quarterly_sales <- c(120, 150, 78, 104)
 quarterly_expenses <- c(106, 112, 96, 98)
 quarterly_revenue <- ______
-quarterly_revenue # Adding this last just to print out the resulting variable.
+
+quarterly_revenue # This is here just to print out quarterly_revenue
 ```
 
 ```{webr}
 #| exercise: ex7
 #| check: true
 
-quartely_sales <- c(120, 150, 78, 104)
+quarterly_sales <- c(120, 150, 78, 104)
 quarterly_expenses <- c(106, 112, 96, 98)
-quarterly_revenue <- quartely_sales - quarterly_expenses
+quarterly_revenue <- quarterly_sales - quarterly_expenses
 
 if(is.numeric(.envir_result$quarterly_revenue) && all(.envir_result$quarterly_revenue == quarterly_revenue)) {
   list(correct = TRUE, message = "Yes! Still a weak Q3, but now much prettier code.")
 } else {
-  list(correct = FALSE, message = "Try again! Tip: z <- x - y would create the new variable z. In you code, make sure that you keep the name quarterly_revenue .") 
+  list(correct = FALSE, message = "Try again! Tip: z <- x - y would create the new variable z. In your code, make sure that you keep the name quarterly_revenue .") 
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex8"}
 
-Reassignment
+Variables need to be assigned before they can be used. This won't work:
+
+```r
+y <- x + 1  # won't work as x doesn't exist at this point!
+x <- 1
+```
+
+However, variable names can be reused and "overwritten". For example, this is okay:
 
 ```r
 x <- 10
-y <- 1
-x <- x + y
-x <- x + y
-x <- x + y
+x <- x + 1
+x <- x + 1
+x <- x + 1
 ```
 
-<div class="task-callout">What's now the value of `x`? Write it in the box below and press **▶ Run Code**</div>
+<div class="task-callout">But what would now be the value of `x`? Write it in the box below and press **▶ Run Code**</div>
 
 ```{webr}
 #| exercise: ex8
@@ -246,32 +258,210 @@ x <- x + y
 #| check: true
 
 x <- 10
-y <- 1
-x <- x + y
-x <- x + y
-x <- x + y
+x <- x + 1
+x <- x + 1
+x <- x + 1
 
 if(is.numeric(.result) && .result == x) {
-  list(correct = TRUE, message = "Ok!")
+  list(correct = TRUE, message = "Yep! For each x <- x + 1, the value of x increases by 1.")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Not quite! For each x <- x + 1, the value of x increases by 1.")
 }
 ```
 
 ::::
 
-* Introduce ice cream sales vector for the month in Hyderabad
-* Using [] for indexing.
-  - Sales on the, say, tenth day.
-  - Temperatures over 40.
-  - Sales on days over 40.
-correlation temp vs sales.
-dotplot temp vs sales.
+:::: {.instructions-and-exercise exercise="ex9"}
+
+Here's some more sales data for you!
+
+```r
+c(13, 22, 37, 35, 9, 16, 19, 18, 15, 37,
+  30, 12, 14, 14, 16, 11, 33, 31, 19, 17,
+  15, 7, 15, 23, 12, 5, 7, 9, 9, 14)
+```
+
+This is the number of sold ice cream cones at my cafe in Hyderabad, India for each day in June 2023. (As opposed to the Hyderabadi temperature data we looked at last chapter, this data is unfortunately made up.)
+
+<div class="task-callout">Copy the ice cream sales data to the code box below and assign it to the variable `sold_ice_creams`.</div>
+
+```{webr}
+#| exercise: ex9
+
+```
+
+```{webr}
+#| exercise: ex9
+#| check: true
+
+sold_ice_creams <- c(
+  13, 22, 37, 35, 9, 16, 19, 18, 15, 37,
+  30, 12, 14, 14, 16, 11, 33, 31, 19, 17,
+  15, 7, 15, 23, 12, 5, 7, 9, 9, 14
+)
+
+if(is.numeric(.envir_result$sold_ice_creams) && all(.envir_result$sold_ice_creams == sold_ice_creams)) {
+  list(correct = TRUE, message = "Great! Now sold_ice_creams can be used in the following exercises.")
+} else {
+  list(correct = FALSE, message = "Try again! For example, sold_ice_creams <- c(1, 2, 3) would create the right variable, but with the wrong data. Make sure you get the name exactly right, in all lowercase.") 
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex10"}
+
+Another thing one can do with a vector is to _subset_ it using the square brackets operator (`[]`). For example, here's how you would pick out the 1st value in `sold_ice_creams`:
+
+```r
+sold_ice_creams[1]
+```
+
+```
+[1] 13
+```
 
 
+<div class="task-callout">Pick out the 2nd value in `sold_ice_creams`.</div>
+
+```{webr}
+#| setup: true
+#| exercise: ex10
+temp <- c(
+  38.9, 40.6, 40.8, 42.4, 38.1, 37.6, 39.6, 40, 39.7, 39.7, 39.2, 
+  37.8, 38.8, 39.4, 39.1, 38.6, 39.4, 39, 39.2, 37.8, 38.8, 38.9, 
+  36, 33.2, 31.8, 30.8, 31.2, 31.6, 32.8, 32.7
+)
+
+sold_ice_creams <- c(
+  13, 22, 37, 35, 9, 16, 19, 18, 15, 37,
+  30, 12, 14, 14, 16, 11, 33, 31, 19, 17,
+  15, 7, 15, 23, 12, 5, 7, 9, 9, 14
+)
+```
+
+```{webr}
+#| exercise: ex10
+#| envir: ice_cream_sales
+
+```
+
+```{webr}
+#| exercise: ex10
+#| check: true
+
+if(is.numeric(.result) && all(.result == sold_ice_creams[2])) {
+  list(correct = TRUE, message = "Aha! Seems we sold much better on the 2nd day compared to the 1st.")
+} else {
+  list(correct = FALSE, message = "Hmmm... So sold_ice_creams[1] would be the 1st value and sold_ice_creams[3] would be the 3rd value...")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex11"}
+
+You can also subset a range of values using the colon operator. For example, this would pick out the first three days of sales:
+
+```r
+sold_ice_creams[1:3]
+```
+
+```
+[1] 13 22 37
+```
+
+
+<div class="task-callout">Pick out the first seven days of sales from `sold_ice_creams`.</div>
+
+```{webr}
+#| exercise: ex11
+#| envir: ice_cream_sales
+
+```
+
+```{webr}
+#| exercise: ex11
+#| check: true
+
+if(is.numeric(.result) && all(.result == sold_ice_creams[1:7])) {
+  list(correct = TRUE, message = "Ok! Seems like sales varied quite a lot during the first week in June.")
+} else {
+  list(correct = FALSE, message = "Try once more! Make sure the variable name and the placement of the brackets are correct.")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex12"}
+
+A subset of a vector can be used as any other vector. For example, this here would calculate the median sales for the first week in June:
+
+```r
+median(sold_ice_creams[1:7])
+```
+
+```
+[1] 19
+```
+
+<div class="task-callout">Use the `sum()` function to calculated the total sales for the first week in `sold_ice_creams`.</div>
+
+```{webr}
+#| exercise: ex12
+#| envir: ice_cream_sales
+
+```
+
+```{webr}
+#| exercise: ex12
+#| check: true
+
+if(is.numeric(.result) && .result == sum(sold_ice_creams[1:7])) {
+  list(correct = TRUE, message = "Cool! Sweet! nICE! Ok, ok, I'll chill with the puns.")
+} else {
+  list(correct = FALSE, message = "Nope. So, median(sold_ice_creams[1:7]) gives you the median sales. Now, just replace median with sum.")
+}
+```
+
+::::
+:::: {.instructions-and-exercise exercise="ex13"}
+
+As a last thing, let's bring in the daily max temperature data from last chapter. Again, I've put that into the `temp` variable. 
+
+Now, the `plot()` function can make simple scatter plots that show two numeric vectors against each other. For example, here's how one would plot `age` against `height`:
+
+```r
+plot(x = age, y = height)
+```
+
+Let's look at the relationship between the temperature and ice cream sales.
+
+<div class="task-callout">Make a scatter plot with `temp` on the x-axis and `sold_ice_creams` on the y-axis.</div>
+
+```{webr}
+#| exercise: ex13
+#| envir: ice_cream_sales
+
+```
+
+```{webr}
+#| exercise: ex13
+#| check: true
+
+errors <- Filter(\(x) inherits(x, "error"), .evaluate_result)
+if(length(errors) == 0 && is.null(.result) && grepl("plot", .user_code) && grepl("temp", .user_code) && grepl("sold_ice_creams", .user_code)) {
+  list(correct = TRUE, message = "Ok! Seems like there might be some relationship here to dig into.")
+} else {
+  list(correct = FALSE, message = "Don't give up! Use the plot() example above, but replace the variable names.")
+}
+```
+
+::::
 
 :::: {.completed-chapter-instructions}
 
-Great work! Now go to the next chapter.
+You've completed the chapter, great work! 
+
+So the plot above is correct because the values in `temp` and `sold_ice_creams` vectors line up. But, rather than juggling several related vectors, wouldn't it be better to stick them all into something like a spreadsheet or table? 
+
+Yes it would! And that's what this next chapter is all about: 👉[3. Data files and data frames](/data-files-and-data-frames.html)👈
 
 ::::
