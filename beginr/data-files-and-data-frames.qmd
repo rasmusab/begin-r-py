@@ -11,31 +11,51 @@ format:
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 {{< include _restart_chapter_button.qmd >}}
 
-![](under-construction.gif)
-
 :::: {.instructions-and-exercise exercise="ex1"}
+
+Last chapter we learned about vectors: sequences of numbers or strings. But if you ever worked with data, you know that data usually doesn't get e-mailed to you as a vector, it comes as a table or spreadsheet. Tables are also the most common way to work with data in R, and in this chapter we'll learn more about that.
+
+The first thing we'll learn is that, in R, tables are called _data frames_. There's many ways to create data frames and one basic way is to stick some vectors in the `data.frame()` function. For example, `data.frame(x, y, z)` would create a data frame that included the data from vectors `x`, `y`, and `z` as columns.
+
+<div class="task-callout">Replace the `______` placeholder with a data frame with columns `quarter`, `revenue`, and `expenses` and assign it to the variable `finances`. Then, press **▶ Run Code**.</div>
 
 ```{webr}
 #| exercise: ex1
-
+#| envir: finances
+quarter = c("Q1", "Q2", "Q3", "Q4")
+revenue <- c(120, 150, 78, 104)
+expenses <- c(106, 112, 96, 98)
+finances <- ______
 ```
 
 ```{webr}
 #| exercise: ex1
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+finances <- data.frame(quarter, revenue, expenses)
+
+if(
+  is.data.frame(.envir_result$finances) && 
+  all(.envir_result$finances$quarter == finances$quarter) &&
+  all(.envir_result$finances$revenue == finances$revenue) &&
+  all(.envir_result$finances$expenses == finances$expenses)
+) {
+  list(correct = TRUE, message = "Seems like we have our finances in order!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Try again! For example, finances <- data.frame(quarter, revenue) would create a data frame with two columns. Just add the missing expenses!")
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex2"}
 
+But, let's have a look, just to be sure! <br> (Remember that you can print out the contents of a variable by just writing its name.)
+
+<div class="task-callout">Take a look at the contents of `finances`.</div>
+
 ```{webr}
 #| exercise: ex2
+#| envir: finances
 
 ```
 
@@ -43,12 +63,13 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 #| exercise: ex2
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.data.frame(.result)) {
+  list(correct = TRUE, message = "Confirmed! Finances are in order.")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Just write out the name of the variable you want to inspect, which in this cases is finances.")
 }
 ```
+
 
 ::::
 :::: {.instructions-and-exercise exercise="ex3"}
@@ -63,9 +84,9 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 #| check: true
 
 if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+  list(correct = TRUE, message = "Confirmed! Finances are in order.")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Just write out the name of the variable you want to inspect, which in this cases is finances.")
 }
 ```
 
