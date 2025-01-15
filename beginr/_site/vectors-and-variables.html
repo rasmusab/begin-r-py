@@ -118,6 +118,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   div.cm-gutters {
     display: none !important;
   }
+  
+  /* Float an image to the left with text wrapping around */
+  img.float-left {
+    float: left;
+    display: inline-block; 
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;    
+    margin-right: 0.5em;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Float an image to the right with text wrapping around */
+  img.float-right {
+    float: right;
+    display: inline-block; 
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;    
+    margin-left: 0.5em;
+    max-width: 100%;
+    height: auto;
+  }
 }
 </style>
 
@@ -563,7 +585,7 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 <div class="instructions-and-exercise" data-exercise="ex6">
 <p>When doing math with two vectors of the same length, the operation will be applied to each corresponding pair of values. It’s easier than it sounds. For example, <code>c(10, 20, 30) + c(1, 2, 3)</code> gives <code>11, 22, 33</code> and <code>11:14 - 1:4</code> gives <code>10, 10, 10, 10</code>.</p>
 <div class="task-callout">
-Change the code below to subtract the expenses from the quarterly sales to get the quarterly revenue.
+Change the code below to subtract the expenses from the quarterly sales to get the quarterly profit.
 </div>
 <div class="cell" data-exercise="ex6" data-startover="true">
 <div>
@@ -577,7 +599,7 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6
 </div>
 <div class="cell" data-exercise="ex6" data-check="true">
 <script type="exercise-check-ex6-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXg2IiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5xdWFydGVybHlfcmV2ZW51ZSA8LSBjKDEyMCwgMTUwLCA3OCwgMTU0KSAtIGMoMTA2LCAxMjIsIDk2LCA5OClcblxuY29ycmVjdF9yZXN1bHRzIDwtIEZpbHRlcihcbiAgXFwoeCkgaW5oZXJpdHMoeCwgXCJyZXN1bHRcIikgJiYgaXMubnVtZXJpYyh4JHZhbHVlKSAmJiBhbGwoeCR2YWx1ZSA9PSBxdWFydGVybHlfcmV2ZW51ZSksXG4gIC5ldmFsdWF0ZV9yZXN1bHRcbilcblxuaWYobGVuZ3RoKGNvcnJlY3RfcmVzdWx0cykgPj0gMSkge1xuICBsaXN0KGNvcnJlY3QgPSBUUlVFLCBtZXNzYWdlID0gXCJZZXMhIEEgd2VhayBRMywgYnV0IHdlIG1hZGUgdXAgZm9yIGl0IHdpdGggdGhlIHN0cm9uZyBRNCFcIilcbn0gZWxzZSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJOb3QgcXVpdGUuIExpa2UgdGhpcywgYygxLCAyLCAzKSAtIGMoNSwgMiwgNyksIGJ1dCB3aXRoIHRoZSBjb3JyZWN0IG51bWJlcnMuXCIpIFxufSJ9
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXg2IiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5xdWFydGVybHlfcHJvZml0IDwtIGMoMTIwLCAxNTAsIDc4LCAxNTQpIC0gYygxMDYsIDEyMiwgOTYsIDk4KVxuXG5jb3JyZWN0X3Jlc3VsdHMgPC0gRmlsdGVyKFxuICBcXCh4KSBpbmhlcml0cyh4LCBcInJlc3VsdFwiKSAmJiBpcy5udW1lcmljKHgkdmFsdWUpICYmIGFsbCh4JHZhbHVlID09IHF1YXJ0ZXJseV9wcm9maXQpLFxuICAuZXZhbHVhdGVfcmVzdWx0XG4pXG5cbmlmKGxlbmd0aChjb3JyZWN0X3Jlc3VsdHMpID49IDEpIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiWWVzISBBIHdlYWsgUTMsIGJ1dCB3ZSBtYWRlIHVwIGZvciBpdCB3aXRoIHRoZSBzdHJvbmcgUTQhXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiTm90IHF1aXRlLiBMaWtlIHRoaXMsIGMoMSwgMiwgMykgLSBjKDUsIDIsIDcpLCBidXQgd2l0aCB0aGUgY29ycmVjdCBudW1iZXJzLlwiKSBcbn0ifQ==
 </script>
 </div>
 </div>
@@ -587,7 +609,7 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 <p>Here we’re taking the value (<code>3.141593</code>) and by using <code>&lt;-</code>, the assignment operator, we’re assigning it to (“putting it into”) a variable named <code>pi</code>. Now, instead of writing <code>2 * 3.141593 * 5</code>, we can write <code>2 * pi * 5</code>. The assignment operator is made up of a <code>&lt;</code> and a <code>-</code>, and is meant to look like a left-pointing arrow.</p>
 <p>Variables can be given both short and long names, but they can’t include spaces. Instead, it’s common to use underscores (<code>_</code>) to separate words in longer names.</p>
 <div class="task-callout">
-Again, calculate the quarterly revenue. But this time by replacing the <code>______</code> placeholder and assigning the result to the variable <code>quarterly_revenue</code>.
+Again, calculate the quarterly profit. But this time by replacing the <code>______</code> placeholder and assigning the result to the variable <code>quarterly_profit</code>.
 </div>
 <div class="cell" data-exercise="ex7" data-startover="true">
 <div>
@@ -595,13 +617,13 @@ Again, calculate the quarterly revenue. But this time by replacing the <code>___
 
 </div>
 <script type="webr-14-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDciLCJwZXJzaXN0Ijp0cnVlLCJzdGFydG92ZXIiOnRydWUsIndhcm5pbmciOmZhbHNlfSwiY29kZSI6InF1YXJ0ZXJseV9zYWxlcyA8LSBjKDEyMCwgMTUwLCA3OCwgMTA0KVxucXVhcnRlcmx5X2V4cGVuc2VzIDwtIGMoMTA2LCAxMTIsIDk2LCA5OClcbnF1YXJ0ZXJseV9yZXZlbnVlIDwtIF9fX19fX1xuXG5xdWFydGVybHlfcmV2ZW51ZSAjIFRoaXMgaXMgaGVyZSBqdXN0IHRvIHByaW50IG91dCBxdWFydGVybHlfcmV2ZW51ZSJ9
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDciLCJwZXJzaXN0Ijp0cnVlLCJzdGFydG92ZXIiOnRydWUsIndhcm5pbmciOmZhbHNlfSwiY29kZSI6InF1YXJ0ZXJseV9wcm9maXQgPC0gYygxMjAsIDE1MCwgNzgsIDEwNClcbnF1YXJ0ZXJseV9leHBlbnNlcyA8LSBjKDEwNiwgMTEyLCA5NiwgOTgpXG5xdWFydGVybHlfcHJvZml0IDwtIF9fX19fX1xuXG5xdWFydGVybHlfcHJvZml0ICMgVGhpcyBpcyBoZXJlIGp1c3QgdG8gcHJpbnQgb3V0IHF1YXJ0ZXJseV9wcm9maXQifQ==
 </script>
 </div>
 </div>
 <div class="cell" data-exercise="ex7" data-check="true">
 <script type="exercise-check-ex7-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXg3IiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5xdWFydGVybHlfc2FsZXMgPC0gYygxMjAsIDE1MCwgNzgsIDEwNClcbnF1YXJ0ZXJseV9leHBlbnNlcyA8LSBjKDEwNiwgMTEyLCA5NiwgOTgpXG5xdWFydGVybHlfcmV2ZW51ZSA8LSBxdWFydGVybHlfc2FsZXMgLSBxdWFydGVybHlfZXhwZW5zZXNcblxuaWYoaXMubnVtZXJpYyguZW52aXJfcmVzdWx0JHF1YXJ0ZXJseV9yZXZlbnVlKSAmJiBhbGwoLmVudmlyX3Jlc3VsdCRxdWFydGVybHlfcmV2ZW51ZSA9PSBxdWFydGVybHlfcmV2ZW51ZSkpIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiWWVzISBTdGlsbCBhIHdlYWsgUTMsIGJ1dCBub3cgbXVjaCBwcmV0dGllciBjb2RlLlwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlRyeSBhZ2FpbiEgVGlwOiB6IDwtIHggLSB5IHdvdWxkIGNyZWF0ZSB0aGUgbmV3IHZhcmlhYmxlIHouIEluIHlvdXIgY29kZSwgbWFrZSBzdXJlIHRoYXQgeW91IGtlZXAgdGhlIG5hbWUgcXVhcnRlcmx5X3JldmVudWUgLlwiKSBcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXg3IiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5xdWFydGVybHlfcHJvZml0IDwtIGMoMTIwLCAxNTAsIDc4LCAxMDQpXG5xdWFydGVybHlfZXhwZW5zZXMgPC0gYygxMDYsIDExMiwgOTYsIDk4KVxucXVhcnRlcmx5X3Byb2ZpdCA8LSBxdWFydGVybHlfcHJvZml0IC0gcXVhcnRlcmx5X2V4cGVuc2VzXG5cbmlmKGlzLm51bWVyaWMoLmVudmlyX3Jlc3VsdCRxdWFydGVybHlfcHJvZml0KSAmJiBhbGwoLmVudmlyX3Jlc3VsdCRxdWFydGVybHlfcHJvZml0ID09IHF1YXJ0ZXJseV9wcm9maXQpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIlllcyEgU3RpbGwgYSB3ZWFrIFEzLCBidXQgbm93IG11Y2ggcHJldHRpZXIgY29kZS5cIilcbn0gZWxzZSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJUcnkgYWdhaW4hIFRpcDogeiA8LSB4IC0geSB3b3VsZCBjcmVhdGUgdGhlIG5ldyB2YXJpYWJsZSB6LiBJbiB5b3VyIGNvZGUsIG1ha2Ugc3VyZSB0aGF0IHlvdSBrZWVwIHRoZSBuYW1lIHF1YXJ0ZXJseV9wcm9maXQgLlwiKSBcbn0ifQ==
 </script>
 </div>
 </div>

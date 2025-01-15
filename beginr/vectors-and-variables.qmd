@@ -156,7 +156,7 @@ if(is.numeric(.result) && grepl("1:10", .user_code) && all(.result == 1:10 * 10 
 
 When doing math with two vectors of the same length, the operation will be applied to each corresponding pair of values. It's easier than it sounds. For example, `c(10, 20, 30) + c(1, 2, 3)` gives `11, 22, 33` and `11:14 - 1:4` gives `10, 10, 10, 10`. 
 
-<div class="task-callout">Change the code below to subtract the expenses from the quarterly sales to get the quarterly revenue.</div>
+<div class="task-callout">Change the code below to subtract the expenses from the quarterly sales to get the quarterly profit.</div>
 
 ```{webr}
 #| exercise: ex6
@@ -172,10 +172,10 @@ c(106, 122, 96, 98)
 #| exercise: ex6
 #| check: true
 
-quarterly_revenue <- c(120, 150, 78, 154) - c(106, 122, 96, 98)
+quarterly_profit <- c(120, 150, 78, 154) - c(106, 122, 96, 98)
 
 correct_results <- Filter(
-  \(x) inherits(x, "result") && is.numeric(x$value) && all(x$value == quarterly_revenue),
+  \(x) inherits(x, "result") && is.numeric(x$value) && all(x$value == quarterly_profit),
   .evaluate_result
 )
 
@@ -200,30 +200,30 @@ Here we're taking the value (`3.141593`) and by using `<-`, the assignment opera
 
 Variables can be given both short and long names, but they can't include spaces. Instead, it's common to use underscores (`_`) to separate words in longer names.
 
-<div class="task-callout">Again, calculate the quarterly revenue. But this time by replacing the `______` placeholder and assigning the result to the variable `quarterly_revenue`.</div>
+<div class="task-callout">Again, calculate the quarterly profit. But this time by replacing the `______` placeholder and assigning the result to the variable `quarterly_profit`.</div>
 
 ```{webr}
 #| exercise: ex7
 #| startover: true
-quarterly_sales <- c(120, 150, 78, 104)
+quarterly_profit <- c(120, 150, 78, 104)
 quarterly_expenses <- c(106, 112, 96, 98)
-quarterly_revenue <- ______
+quarterly_profit <- ______
 
-quarterly_revenue # This is here just to print out quarterly_revenue
+quarterly_profit # This is here just to print out quarterly_profit
 ```
 
 ```{webr}
 #| exercise: ex7
 #| check: true
 
-quarterly_sales <- c(120, 150, 78, 104)
+quarterly_profit <- c(120, 150, 78, 104)
 quarterly_expenses <- c(106, 112, 96, 98)
-quarterly_revenue <- quarterly_sales - quarterly_expenses
+quarterly_profit <- quarterly_profit - quarterly_expenses
 
-if(is.numeric(.envir_result$quarterly_revenue) && all(.envir_result$quarterly_revenue == quarterly_revenue)) {
+if(is.numeric(.envir_result$quarterly_profit) && all(.envir_result$quarterly_profit == quarterly_profit)) {
   list(correct = TRUE, message = "Yes! Still a weak Q3, but now much prettier code.")
 } else {
-  list(correct = FALSE, message = "Try again! Tip: z <- x - y would create the new variable z. In your code, make sure that you keep the name quarterly_revenue .") 
+  list(correct = FALSE, message = "Try again! Tip: z <- x - y would create the new variable z. In your code, make sure that you keep the name quarterly_profit .") 
 }
 ```
 
