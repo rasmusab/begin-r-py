@@ -22,6 +22,7 @@ The first thing we'll learn is that, in R, tables are called _data frames_. Ther
 ```{webr}
 #| exercise: ex1
 #| envir: finances
+#| startover: true
 quarter = c("Q1", "Q2", "Q3", "Q4")
 revenue <- c(120, 150, 78, 104)
 expenses <- c(106, 112, 96, 98)
@@ -74,24 +75,40 @@ if(is.data.frame(.result)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex3"}
 
+Compared to a spreadsheet, data frames are less flexible. They typically only have column names, no row names, and you certainly <span style="background-color: red;">can't</span> <span style="background-color: lightblue;">color</span> <span style="background-color: springgreen;">the</span> <span style="background-color: yellow;">cells</span>.
+
+One good way to think of data frames are as a list of vectors, each vector being a column. You can "get out" or _access_ the vectors in a data frame using the `$` operator. For example, `finances$quarter` would be the vector `c("Q1", "Q2", "Q3", "Q4")`.
+
+<div class="task-callout">The code below adds the column/vector `profit` to `finaces`. Use the `sum()` function to sum up the `profit` for all quarters.</div>
+
 ```{webr}
 #| exercise: ex3
-
+#| envir: finances
+#| startover: true
+#| min-lines: 3
+finances$profit <- finances$revenue - finances$expenses
+ 
+ 
 ```
 
 ```{webr}
 #| exercise: ex3
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Confirmed! Finances are in order.")
+finances$profit <- finances$revenue - finances$expenses
+
+if(is.numeric(.result) && grepl("sum", .user_code) && .result == sum(finances$profit)) {
+  list(correct = TRUE, message = "Perfect! The board will be pleased.")
 } else {
-  list(correct = FALSE, message = "Just write out the name of the variable you want to inspect, which in this cases is finances.")
+  list(correct = FALSE, message = "Something is wrong. A tip: sum(finances$expenses) would sum up the expenses. Make sure you put the code that sums the profit last in the code cell above.")
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex4"}
+
+
+<div class="task-callout">...</div>
 
 ```{webr}
 #| exercise: ex4
@@ -112,6 +129,9 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex5"}
 
+
+<div class="task-callout">...</div>
+
 ```{webr}
 #| exercise: ex5
 
@@ -130,6 +150,10 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 
 ::::
 :::: {.instructions-and-exercise exercise="ex6"}
+
+
+<div class="task-callout">...</div>
+
 
 ```{webr}
 #| exercise: ex6
@@ -150,6 +174,10 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex7"}
 
+
+<div class="task-callout">...</div>
+
+
 ```{webr}
 #| exercise: ex7
 
@@ -168,6 +196,10 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 
 ::::
 :::: {.instructions-and-exercise exercise="ex8"}
+
+
+<div class="task-callout">...</div>
+
 
 ```{webr}
 #| exercise: ex8

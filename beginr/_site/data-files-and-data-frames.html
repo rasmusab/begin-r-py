@@ -84,6 +84,28 @@ ul.task-list li input[type="checkbox"] {
   div.cm-gutters {
     display: none !important;
   }
+  
+  /* Float an image to the left with text wrapping around */
+  img.float-left {
+    float: left;
+    display: inline-block; 
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;    
+    margin-right: 0.5em;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Float an image to the right with text wrapping around */
+  img.float-right {
+    float: right;
+    display: inline-block; 
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;    
+    margin-left: 0.5em;
+    max-width: 100%;
+    height: auto;
+  }
 }
 </style>
 
@@ -414,59 +436,75 @@ document.addEventListener("DOMContentLoaded", () => {
 <div style="text-align: right;">
 <p><button id="restart-chapter-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
 </div>
-<p><img src="under-construction.gif" class="img-fluid"></p>
 <div class="instructions-and-exercise" data-exercise="ex1">
-<div class="cell" data-exercise="ex1">
+<p>Last chapter we learned about vectors: sequences of numbers or strings. But if you ever worked with data, you know that data usually doesn’t get e-mailed to you as a vector, it comes as a table or spreadsheet. Tables are also the most common way to work with data in R, and in this chapter we’ll learn more about that.</p>
+<p>The first thing we’ll learn is that, in R, tables are called <em>data frames</em>. There’s many ways to create data frames and one basic way is to stick some vectors in the <code>data.frame()</code> function. For example, <code>data.frame(x, y, z)</code> would create a data frame that included the data from vectors <code>x</code>, <code>y</code>, and <code>z</code> as columns.</p>
+<div class="task-callout">
+Replace the <code>______</code> placeholder with a data frame with columns <code>quarter</code>, <code>revenue</code>, and <code>expenses</code> and assign it to the variable <code>finances</code>. Then, press <strong>▶ Run Code</strong>.
+</div>
+<div class="cell" data-exercise="ex1" data-envir="finances" data-startover="true">
 <div>
 <div id="webr-1" class="exercise-cell">
 
 </div>
 <script type="webr-1-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDEiLCJwZXJzaXN0Ijp0cnVlLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiIifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJmaW5hbmNlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjp0cnVlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiJxdWFydGVyID0gYyhcIlExXCIsIFwiUTJcIiwgXCJRM1wiLCBcIlE0XCIpXG5yZXZlbnVlIDwtIGMoMTIwLCAxNTAsIDc4LCAxMDQpXG5leHBlbnNlcyA8LSBjKDEwNiwgMTEyLCA5NiwgOTgpXG5maW5hbmNlcyA8LSBfX19fX18ifQ==
 </script>
 </div>
 </div>
 <div class="cell" data-exercise="ex1" data-check="true">
 <script type="exercise-check-ex1-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5pZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIk9rIVwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlRyeSBhZ2FpbiFcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5maW5hbmNlcyA8LSBkYXRhLmZyYW1lKHF1YXJ0ZXIsIHJldmVudWUsIGV4cGVuc2VzKVxuXG5pZihcbiAgaXMuZGF0YS5mcmFtZSguZW52aXJfcmVzdWx0JGZpbmFuY2VzKSAmJiBcbiAgYWxsKC5lbnZpcl9yZXN1bHQkZmluYW5jZXMkcXVhcnRlciA9PSBmaW5hbmNlcyRxdWFydGVyKSAmJlxuICBhbGwoLmVudmlyX3Jlc3VsdCRmaW5hbmNlcyRyZXZlbnVlID09IGZpbmFuY2VzJHJldmVudWUpICYmXG4gIGFsbCguZW52aXJfcmVzdWx0JGZpbmFuY2VzJGV4cGVuc2VzID09IGZpbmFuY2VzJGV4cGVuc2VzKVxuKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIlNlZW1zIGxpa2Ugd2UgaGF2ZSBvdXIgZmluYW5jZXMgaW4gb3JkZXIhXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiVHJ5IGFnYWluISBGb3IgZXhhbXBsZSwgZmluYW5jZXMgPC0gZGF0YS5mcmFtZShxdWFydGVyLCByZXZlbnVlKSB3b3VsZCBjcmVhdGUgYSBkYXRhIGZyYW1lIHdpdGggdHdvIGNvbHVtbnMuIEp1c3QgYWRkIHRoZSBtaXNzaW5nIGV4cGVuc2VzIVwiKVxufSJ9
 </script>
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex2">
-<div class="cell" data-exercise="ex2">
+<p>But, let’s have a look, just to be sure! <br> (Remember that you can print out the contents of a variable by just writing its name.)</p>
+<div class="task-callout">
+Take a look at the contents of <code>finances</code>.
+</div>
+<div class="cell" data-exercise="ex2" data-envir="finances">
 <div>
 <div id="webr-3" class="exercise-cell">
 
 </div>
 <script type="webr-3-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDIiLCJwZXJzaXN0Ijp0cnVlLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiIifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJmaW5hbmNlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgyIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiIn0=
 </script>
 </div>
 </div>
 <div class="cell" data-exercise="ex2" data-check="true">
 <script type="exercise-check-ex2-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgyIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5pZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIk9rIVwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlRyeSBhZ2FpbiFcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgyIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5pZihpcy5kYXRhLmZyYW1lKC5yZXN1bHQpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIkNvbmZpcm1lZCEgRmluYW5jZXMgYXJlIGluIG9yZGVyLlwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIkp1c3Qgd3JpdGUgb3V0IHRoZSBuYW1lIG9mIHRoZSB2YXJpYWJsZSB5b3Ugd2FudCB0byBpbnNwZWN0LCB3aGljaCBpbiB0aGlzIGNhc2VzIGlzIGZpbmFuY2VzLlwiKVxufSJ9
 </script>
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex3">
-<div class="cell" data-exercise="ex3">
+<p>Compared to a spreadsheet, data frames are less flexible. They typically only have column names, no row names, and you certainly <span style="background-color: red;">can’t</span> <span style="background-color: lightblue;">color</span> <span style="background-color: springgreen;">the</span> <span style="background-color: yellow;">cells</span>.</p>
+<p>One good way to think of data frames are as a list of vectors, each vector being a column. You can “get out” or <em>access</em> the vectors in a data frame using the <code>$</code> operator. For example, <code>finances$quarter</code> would be the vector <code>c("Q1", "Q2", "Q3", "Q4")</code>.</p>
+<div class="task-callout">
+The code below adds the column/vector <code>profit</code> to <code>finaces</code>. Use the <code>sum()</code> function to sum up the <code>profit</code> for all quarters.
+</div>
+<div class="cell" data-exercise="ex3" data-envir="finances" data-startover="true" data-min-lines="3">
 <div>
 <div id="webr-5" class="exercise-cell">
 
 </div>
 <script type="webr-5-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJleDMiLCJwZXJzaXN0Ijp0cnVlLCJzdGFydG92ZXIiOmZhbHNlLCJ3YXJuaW5nIjpmYWxzZX0sImNvZGUiOiIifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJmaW5hbmNlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgzIiwibWluLWxpbmVzIjozLCJwZXJzaXN0Ijp0cnVlLCJzdGFydG92ZXIiOnRydWUsIndhcm5pbmciOmZhbHNlfSwiY29kZSI6ImZpbmFuY2VzJHByb2ZpdCA8LSBmaW5hbmNlcyRyZXZlbnVlIC0gZmluYW5jZXMkZXhwZW5zZXNcbiBcbiAifQ==
 </script>
 </div>
 </div>
 <div class="cell" data-exercise="ex3" data-check="true">
 <script type="exercise-check-ex3-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgzIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5pZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIk9rIVwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlRyeSBhZ2FpbiFcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgzIiwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6ZmFsc2V9LCJjb2RlIjoiXG5maW5hbmNlcyRwcm9maXQgPC0gZmluYW5jZXMkcmV2ZW51ZSAtIGZpbmFuY2VzJGV4cGVuc2VzXG5cbmlmKGlzLm51bWVyaWMoLnJlc3VsdCkgJiYgZ3JlcGwoXCJzdW1cIiwgLnVzZXJfY29kZSkgJiYgLnJlc3VsdCA9PSBzdW0oZmluYW5jZXMkcHJvZml0KSkge1xuICBsaXN0KGNvcnJlY3QgPSBUUlVFLCBtZXNzYWdlID0gXCJQZXJmZWN0ISBUaGUgYm9hcmQgd2lsbCBiZSBwbGVhc2VkLlwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlNvbWV0aGluZyBpcyB3cm9uZy4gQSB0aXA6IHN1bShmaW5hbmNlcyRleHBlbnNlcykgd291bGQgc3VtIHVwIHRoZSBleHBlbnNlcy4gTWFrZSBzdXJlIHlvdSBwdXQgdGhlIGNvZGUgdGhhdCBzdW1zIHRoZSBwcm9maXQgbGFzdCBpbiB0aGUgY29kZSBjZWxsIGFib3ZlLlwiKVxufSJ9
 </script>
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex4">
+<div class="task-callout">
+…
+</div>
 <div class="cell" data-exercise="ex4">
 <div>
 <div id="webr-7" class="exercise-cell">
@@ -484,6 +522,9 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex5">
+<div class="task-callout">
+…
+</div>
 <div class="cell" data-exercise="ex5">
 <div>
 <div id="webr-9" class="exercise-cell">
@@ -501,6 +542,9 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex6">
+<div class="task-callout">
+…
+</div>
 <div class="cell" data-exercise="ex6">
 <div>
 <div id="webr-11" class="exercise-cell">
@@ -518,6 +562,9 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex7">
+<div class="task-callout">
+…
+</div>
 <div class="cell" data-exercise="ex7">
 <div>
 <div id="webr-13" class="exercise-cell">
@@ -535,6 +582,9 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex8">
+<div class="task-callout">
+…
+</div>
 <div class="cell" data-exercise="ex8">
 <div>
 <div id="webr-15" class="exercise-cell">
