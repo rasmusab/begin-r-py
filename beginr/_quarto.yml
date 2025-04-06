@@ -33,7 +33,7 @@ format:
       cell-options:
         persist: true
         caption: 
-        warning: false
+        warning: true
     theme: cosmo
     css: styles.css
     toc: false
