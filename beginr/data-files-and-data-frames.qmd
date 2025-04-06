@@ -6,6 +6,10 @@ format:
       cell-options:
         startover: false
         completion:	false
+      packages:
+        - tidyverse
+resources:
+  - "hyderabad-sales-2023-june.csv"
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -18,6 +22,15 @@ Last chapter we learned about vectors: sequences of numbers or strings. But if y
 The first thing we'll learn is that, in R, tables are called _data frames_. There's many ways to create data frames and one basic way is to stick some vectors in the `data.frame()` function. For example, `data.frame(x, y, z)` would create a data frame that included the data from vectors `x`, `y`, and `z` as columns.
 
 <div class="task-callout">Replace the `______` placeholder with a data frame with columns `quarter`, `revenue`, and `expenses` and assign it to the variable `finances`. Then, press **▶ Run Code**.</div>
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tidyverse)
+sales <- read_csv("hyderabad-sales-2023-june.csv")
+```
+
 
 ```{webr}
 #| exercise: ex1
@@ -75,11 +88,11 @@ if(is.data.frame(.result)) {
 ::::
 :::: {.instructions-and-exercise exercise="ex3"}
 
-Compared to a spreadsheet, data frames are less flexible. They typically only have column names, no row names, and you certainly <span style="background-color: red;">can't</span> <span style="background-color: lightblue;">color</span> <span style="background-color: springgreen;">the</span> <span style="background-color: yellow;">cells</span>.
+Compared to a spreadsheet, data frames are less flexible. They typically only have column names, no row names, and you certainly <span style="background-color: red;">can't</span> <span style="background-color: lightblue;">color</span> <span style="background-color: springgreen;">the</span> <span style="background-color: yellow;">cells</span>. But the lack of flexibility also means that data frames are more predictable and easier to program with than spreadsheets. 
 
-One good way to think of data frames are as a list of vectors, each vector being a column. You can "get out" or _access_ the vectors in a data frame using the `$` operator. For example, `finances$quarter` would be the vector `c("Q1", "Q2", "Q3", "Q4")`.
+One good way to think of data frames are as a collection of vectors, each vector being a column. You can "get out" or _access_ the vectors in a data frame using the `$` operator. For example, `finances$quarter` would be the vector `c("Q1", "Q2", "Q3", "Q4")`.
 
-<div class="task-callout">The code below adds the column/vector `profit` to `finaces`. Use the `sum()` function to sum up the `profit` for all quarters.</div>
+<div class="task-callout">The code below adds the column/vector `profit` to `finaces`. Replace the `______` placeholder and use the `sum()` function to sum up the `profit` for all quarters.</div>
 
 ```{webr}
 #| exercise: ex3
@@ -87,8 +100,7 @@ One good way to think of data frames are as a list of vectors, each vector being
 #| startover: true
 #| min-lines: 3
 finances$profit <- finances$revenue - finances$expenses
- 
- 
+______
 ```
 
 ```{webr}
@@ -107,8 +119,32 @@ if(is.numeric(.result) && grepl("sum", .user_code) && .result == sum(finances$pr
 ::::
 :::: {.instructions-and-exercise exercise="ex4"}
 
+But now we're at a crossroad. R is an old programming language (most likely older than you!) and over the years people have come up with different ways to compute on and manipulate data in R. In this tutorial, we have to decide which way to go for. And I've already made up my mind here.
 
-<div class="task-callout">...</div>
+On account of it being intuitive, powerful, and popular, we're going to use the `tidyverse` packages to work with data in R. A _package_ is, well, a package of new functions and functionality, that can be added to R. The `tidyverse` is a collection of packages for data manipulation, visualization etc. that work well together.
+
+To use a package you pull it out of your library of installed packages using the `library()` function
+
+<div class="task-callout">Start using the tidyverse by running `library(tidyverse)`.<br>
+</div>
+
+```{webr}
+#| setup: true
+#| exercise: ex4
+packages_to_unload <- c(
+  "tidyr", "dplyr", "readr", "forcats", "stringr", "ggplot2", 
+  "lubridate", "purrr", "tibble", "tidyverse"
+)
+
+unload_package <- \(pkg) {
+  if (paste0("package:", pkg) %in% search()) {
+    detach(paste0("package:", pkg), unload = TRUE, character.only = TRUE)
+  }
+}
+
+sapply(packages_to_unload , unload_package)
+```
+
 
 ```{webr}
 #| exercise: ex4
@@ -119,18 +155,35 @@ if(is.numeric(.result) && grepl("sum", .user_code) && .result == sum(finances$pr
 #| exercise: ex4
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if("tidyverse" %in% loadedNamespaces()) {
+  list(correct = TRUE, message = "The tidyverse is loaded and ready to use!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Just write library(tidyverse) and click 'run'")
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex5"}
 
+One of the many useful functions in the `tidyverse` is `read_csv()`. It can be used to read data frames from _comma separated value_ (CSV) files, a simple text format for storing tabular data. Here's the first four lines from the CSV file `hyderabad-sales-2023-june.csv`:
 
-<div class="task-callout">...</div>
+```
+date,day_of_week,temp_max,sold_ice_creams,sold_coffee
+2023-06-01,Thursday,38.9,13,17
+2023-06-02,Friday,40.6,22,21
+2023-06-03,Saturday,40.8,37,19
+```
+
+The first row show the column headers, and each following row hold the _comma separated values_. To read in a comma separated file, say `data.csv`, give it as a string argument like this: `read_csv("data.csv")`.
+
+
+<div class="task-callout">Take a look at `hyderabad-sales-2023-june.csv` by reading it in with `read_csv()`.</div>
+
+```{webr}
+#| setup: true
+#| exercise: ex5
+library(tidyverse)
+```
 
 ```{webr}
 #| exercise: ex5
@@ -141,19 +194,27 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 #| exercise: ex5
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.data.frame(.result) && all(.result == read_csv("hyderabad-sales-2023-june.csv"))) {
+  list(correct = TRUE, message = "Ok! That looks like data to me!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = 'Just go for read_csv("THE-FILENAME-HERE.csv"). Make sure to not assign the output of read_csv to any variable.')
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex6"}
 
+The printout above informs us that `hyderabad-sales-2023-june.csv` was read in as `A tibble: 30 × 5`. The `30` makes sense, there are 30 days in June, and there are `5` column in the data frame, but what's a `tibble`? That's just the `tidyverses`'s version of R's regular data frames, but for the most part they can be used in the same way.
 
-<div class="task-callout">...</div>
+But we can't use the data that we read in, at all! We read it in with `read_csv`, we got a printout, but, as we didn't assign the it to a variable, we can do anything with it. Remember that you assign values to variable names using the arrow operator `<-`. For example, `a_random_number <- runif(1)` would put a random number between 0.0 and 1.0 "into" `a_random_number`.
 
+<div class="task-callout">Use `read_csv()` to read in `hyderabad-sales-2023-june.csv`, but now, assign it to the variable `sales`.</div>
+
+```{webr}
+#| setup: true
+#| exercise: ex6
+library(tidyverse)
+```
 
 ```{webr}
 #| exercise: ex6
@@ -164,22 +225,55 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 #| exercise: ex6
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(is.data.frame(.envir_result$sales) && all(.envir_result$sales == read_csv("hyderabad-sales-2023-june.csv"))) {
+  list(correct = TRUE, message = "Great! Now we can get to work!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = 'Just like before, but now with sales <- in front, like so: sales <- read_csv("THE-FILENAME-HERE.csv"). Case is important, so make sure it\'s not Sales, SALES, or SaLeS.')
 }
 ```
+
+<!--
+* ex9 filter(): sales |> filter(day_of_week == "Saturday")
+* ex10 chaining. stats on icecreams sold on a saturday. sales |> filter(day_of_week == "Saturday") |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
+* ex11 group_by instead of filter: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
+* ex12 tack on arrange() to sort, as well: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams)) |> arrange(total_ice_creams)
+
+Skip select and mutate for now.
+he `tidyverse` has a lot of functions for working with data frames. One of the most useful is `summarize()`, which can be used to calculate summary statistics, like the total number of ice creams sold in June. To use it, you need to give it a data frame and a summary statistic to calculate. For example, `summarize(sales, total_ice_creams = sum(sold_ice_creams))` will give you the total number of ice creams sold in June.
+--> 
 
 ::::
 :::: {.instructions-and-exercise exercise="ex7"}
 
+Three of the most common things to do when analyzing data is to:
 
-<div class="task-callout">...</div>
+1. _Summarize_ the data. For example, to sum up a column.
+2. _Filter_ the data. For example, we might only want to look at the rows stamped with "Saturday".
+3. _Group by_ some column (say the day of the week), and summarize each group.
+
+The `tidyverse` have functions for all of these! 
+
+The function that helps you summarize is called 🥁🥁🥁 `summarize`! The first argument is the data frame to operate on, and every subsequent _named_ argument defines a new summary. A bit abstract, maybe, but look at this:
+
+```{r}
+summarize(sales, avg_sold_ice_creams = mean(sold_ice_creams))
+```
+This takes the data frame `sales` and calculates the `mean` value of the column `sold_ice_creams`, and assigns it to a new column named `avg_sold_ice_creams`. The result is a new data frame with the summary (here just the single value). 
+
+
+<div class="task-callout">Use `summarize()` to calculate the total number of sold ice creams in `sales`.</div>
+
+```{webr}
+#| setup: true
+#| exercise: ex7
+library(tidyverse)
+sales <- read_csv("hyderabad-sales-2023-june.csv")
+```
 
 
 ```{webr}
 #| exercise: ex7
+#| envir: sales
 
 ```
 
@@ -187,27 +281,210 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 #| exercise: ex7
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+sales_summary <- summarize(sales, n_sold_ice_creams = sum(sold_ice_creams))
+
+if(
+  is.data.frame(.result) && 
+  all(dim(.result) == dim(sales_summary)) &&
+  .result[[1, 1]] == sales_summary[[1, 1]]
+) {
+  list(correct = TRUE, message = "Our ice cream sells like hot cakes!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "This one is a bit tricky, but look at the example above with mean(). But, instead of mean() use sum(). Also, it's important to not have any \"quotes\" around sold_ice_creams.")
 }
 ```
 
 ::::
 :::: {.instructions-and-exercise exercise="ex8"}
 
+Like many other `tidyverse` functions, `summarize` allows you to freely reference column names from the data frame. For example, if we just write:
+
+```{r}
+#| error: true
+sum(sold_ice_creams)
+```
+
+Then R will complain, and rightfully so, as `sold_ice_creams` is not an existing variable name. But when we write:
+
+```{r}
+summarize(sales, n_sold_ice_creams = sum(sold_ice_creams))
+```
+Then the `summarize` function knows to look among the columns in `sales` before complaining. Not all R functions are nice like this, but the `tidyverse` ones often are. 
+
+The tidyverse functions are also well suited to combine using the pipe operator `|>`, so called because it takes data on the left and "pipes it in" as the first argument in the function on the right. Instead of writing `sum(1, 2, 3)`, one can go:
+
+```{r}
+1 |> sum(2, 3)
+```
+
+Similarly, as `summarize()` takes the data frame as the first arguments, this is two ways of writing the same thing:
+
+![](images/r-pipe-animation-small.gif)
+
+<div class="task-callout">Rewrite the expression to use the pipe operator (`|>`), but it should still do the same thing.</div>
+
+<details>
+  <summary>How do I type a | (horisontal bar)?</summary>
+  This can be a bit tricky, depending on your keyboard. If you can't figure it out, try searching for something like: <br>
+
+  > How to type vertical bar on a French|Swedish|Italian Mac|Windows keyboard?
+
+</details>
+
+
+
+
+
+```{webr}
+#| exercise: ex8
+#| envir: sales
+#| startover: true
+summarize(sales, n_sold_ice_creams = sum(sold_ice_creams))
+```
+
+```{webr}
+#| exercise: ex8
+#| check: true
+
+sales_summary <- summarize(sales, n_sold_ice_creams = sum(sold_ice_creams))
+
+if(
+  is.data.frame(.result) && 
+  all(dim(.result) == dim(sales_summary)) &&
+  .result[[1, 1]] == sales_summary[[1, 1]] &&
+   grepl("|>", .user_code)
+) {
+  list(correct = TRUE, message = "Ok, we got the same result! So what was the point?")
+} else {
+  list(correct = FALSE, message = "Look at the animation above, you need to do the same thing here.")
+}
+```
+
+::::
+
+:::: {.instructions-and-exercise exercise="ex9"}
+
+There's actually not really any point using `|>` for simple statements, like the above, but it makes it much easier to compose complex data transformations. We'll get to that soon!
+
+For now, let's learn how to filter out the rows we want using the 🥁🥁🥁 `filter` function, which takes a data frame as the first argument, and then one or more _logical_ expressions, and return only those rows that matches all expressions. For example, days that were warmer than 40° C:
+
+```{r}
+sales |> filter(temp_max > 40.0)
+```
+
+Or the data from the 1st of June, 2023:
+
+```{r}
+sales |> filter(date == "2023-06-01")
+```
+There are many operators and functions that can be used in a logical expression, here are the most common ones:
+
+| Logical operator |                  |
+|----------|----------------------|
+| `==`     | Equal to (yes, it's `==` and not `=`)             |
+| `!=`     | Not equal to         |
+| `>`      | Greater than         |
+| `>=`     | Greater than or equal to |
+| `<`      | Less than            |
+| `<=`     | Less than or equal to   |
+<br>
+
+<div class="task-callout">Replace `______` with a `filter()` expression that keeps only the Saturday sales data.</div>
+
+Tip: When using `==` to compare strings, uppercase and lowercase letters are not equal. `"O_O" == "O_o"` is `FALSE`.
+
+
+```{webr}
+#| exercise: ex9
+#| envir: sales
+#| startover: true
+sales |> ______
+```
+
+```{webr}
+#| exercise: ex9
+#| check: true
+
+saturday_sales <- sales |> filter(day_of_week == "Saturday")
+
+if(
+  is.data.frame(.result) && 
+  all(dim(.result) == dim(saturday_sales)) &&
+  all(.result == saturday_sales) &&
+   grepl("|>", .user_code)
+) {
+  list(correct = TRUE, message = "Ok! Looks like ice cream beats coffee on Saturdays.")
+} else {
+  list(correct = FALSE, message = "Without giving anything away: The answer is NOT sales |> filter(day_of_week == \"Friday\") ...")
+}
+```
+
+::::
+
+:::: {.instructions-and-exercise exercise="ex10"}
+
 
 <div class="task-callout">...</div>
 
 
 ```{webr}
-#| exercise: ex8
+#| exercise: ex10
+#| envir: sales
 
 ```
 
 ```{webr}
-#| exercise: ex8
+#| exercise: ex10
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+
+:::: {.instructions-and-exercise exercise="ex11"}
+
+
+<div class="task-callout">...</div>
+
+
+```{webr}
+#| exercise: ex11
+#| envir: sales
+
+```
+
+```{webr}
+#| exercise: ex11
+#| check: true
+
+if(is.numeric(.result) && grepl("sum", .user_code)) {
+  list(correct = TRUE, message = "Ok!")
+} else {
+  list(correct = FALSE, message = "Try again!")
+}
+```
+
+::::
+
+:::: {.instructions-and-exercise exercise="ex12"}
+
+
+<div class="task-callout">...</div>
+
+
+```{webr}
+#| exercise: ex12
+#| envir: sales
+
+```
+
+```{webr}
+#| exercise: ex12
 #| check: true
 
 if(is.numeric(.result) && grepl("sum", .user_code)) {
