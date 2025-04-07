@@ -15,6 +15,8 @@ resources:
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 {{< include _restart_chapter_button.qmd >}}
 
+![](under-construction.gif)
+
 :::: {.instructions-and-exercise exercise="ex1"}
 
 Last chapter we learned about vectors: sequences of numbers or strings. But if you ever worked with data, you know that data usually doesn't get e-mailed to you as a vector, it comes as a table or spreadsheet. Tables are also the most common way to work with data in R, and in this chapter we'll learn more about that.

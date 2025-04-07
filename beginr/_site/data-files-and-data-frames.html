@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isVisible = isPreviousExerciseCompleted(exerciseId);
         toggleDivVisibility(div, isVisible);
         // !!!!!!!!!! For debugging only !!!!!!!!!!!!
-        toggleDivVisibility(div, true);  
+        // toggleDivVisibility(div, true);  
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       });
       
@@ -472,6 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <div style="text-align: right;">
 <p><button id="restart-chapter-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
 </div>
+<p><img src="under-construction.gif" class="img-fluid"></p>
 <div class="instructions-and-exercise" data-exercise="ex1">
 <p>Last chapter we learned about vectors: sequences of numbers or strings. But if you ever worked with data, you know that data usually doesn’t get e-mailed to you as a vector, it comes as a table or spreadsheet. Tables are also the most common way to work with data in R, and in this chapter we’ll learn more about that.</p>
 <p>The first thing we’ll learn is that, in R, tables are called <em>data frames</em>. There’s many ways to create data frames and one basic way is to stick some vectors in the <code>data.frame()</code> function. For example, <code>data.frame(x, y, z)</code> would create a data frame that included the data from vectors <code>x</code>, <code>y</code>, and <code>z</code> as columns.</p>
