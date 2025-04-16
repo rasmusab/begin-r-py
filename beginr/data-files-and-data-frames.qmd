@@ -235,13 +235,12 @@ if(is.data.frame(.envir_result$sales) && all(.envir_result$sales == read_csv("hy
 ```
 
 <!--
-* ex9 filter(): sales |> filter(day_of_week == "Saturday")
 * ex10 chaining. stats on icecreams sold on a saturday. sales |> filter(day_of_week == "Saturday") |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex11 group_by instead of filter: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex12 tack on arrange() to sort, as well: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams)) |> arrange(total_ice_creams)
 
 Skip select and mutate for now.
-he `tidyverse` has a lot of functions for working with data frames. One of the most useful is `summarize()`, which can be used to calculate summary statistics, like the total number of ice creams sold in June. To use it, you need to give it a data frame and a summary statistic to calculate. For example, `summarize(sales, total_ice_creams = sum(sold_ice_creams))` will give you the total number of ice creams sold in June.
+the `tidyverse` has a lot of functions for working with data frames. One of the most useful is `summarize()`, which can be used to calculate summary statistics, like the total number of ice creams sold in June. To use it, you need to give it a data frame and a summary statistic to calculate. For example, `summarize(sales, total_ice_creams = sum(sold_ice_creams))` will give you the total number of ice creams sold in June.
 --> 
 
 ::::
@@ -335,8 +334,6 @@ Similarly, as `summarize()` takes the data frame as the first arguments, this is
 
 
 
-
-
 ```{webr}
 #| exercise: ex8
 #| envir: sales
@@ -425,13 +422,47 @@ if(
 
 :::: {.instructions-and-exercise exercise="ex10"}
 
+Now comes the point of the pipe operator `|>` ! Using it we can combine, or _chain together_, several statements. For example, if we wanted to read in a CSV file and calculate the median doughnuts sold on Mondays, we _could_ squish it all into one single line:
 
-<div class="task-callout">...</div>
+```{r}
+#| message: false
+#| eval: false
+ny_sales <- read_csv("new-york-sales-2025-april.csv")
+summarize(filter(ny_sales, day_of_week == "Monday"), median_sold_doughnuts = median(sold_doughnuts))
+```
+
+But that's pretty unreadable! An alternative is to do one step at a time, assigning each intermediate result to a variable:
+
+```{r}
+#| message: false
+#| eval: false
+ny_sales <- read_csv("new-york-sales-2025-april.csv")
+monday_sales <- filter(ny_sales, day_of_week == "Monday")
+median_monday_sales <- summarize(
+  monday_sales, median_sold_doughnuts = median(sold_doughnuts)
+)
+median_monday_sales
+```
+
+That's alright, I guess, but with the pipe operator `|>` we can simplify this even further!
+
+```{r}
+#| message: false
+ny_sales <- read_csv("new-york-sales-2025-april.csv")
+ny_sales |> 
+  filter(day_of_week == "Monday") |> 
+  summarize(median_sold_doughnuts = median(sold_doughnuts))
+```
+
+When using the `|>` it's common to have one function per line, with a two-space indent on all but the first line. 
+
+<div class="task-callout">Combine the two last exercises and write a statement using `|>` that calculates the total number of ice creams we've sold on Saturdays in the `sales` data.</div>
 
 
 ```{webr}
 #| exercise: ex10
 #| envir: sales
+#| min-lines: 3
 
 ```
 
@@ -439,10 +470,20 @@ if(
 #| exercise: ex10
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+sales_saturday_summary <- sales |> 
+  filter(day_of_week == "Saturday") |> 
+  summarize(n_sold_ice_creams = sum(sold_ice_creams))
+
+if(
+  is.data.frame(.result) && 
+  all(dim(.result) == dim(sales_saturday_summary)) &&
+  .result[[1, 1]] == sales_summary[[1, 1]] &&
+  # Can we find two |> ?
+  grepl(r"{(?s)\|>.*\|>}", .user_code, perl = TRUE)
+) {
+  list(correct = TRUE, message = "Nice and clean!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Take a look at the ny_sales example above, but change to the sales data, with the correct day and treat.")
 }
 ```
 

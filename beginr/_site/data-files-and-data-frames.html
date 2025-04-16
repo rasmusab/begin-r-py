@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isVisible = isPreviousExerciseCompleted(exerciseId);
         toggleDivVisibility(div, isVisible);
         // !!!!!!!!!! For debugging only !!!!!!!!!!!!
-        // toggleDivVisibility(div, true);  
+        toggleDivVisibility(div, true);  
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       });
       
@@ -624,13 +624,12 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </script>
 </div>
 <!--
-* ex9 filter(): sales |> filter(day_of_week == "Saturday")
 * ex10 chaining. stats on icecreams sold on a saturday. sales |> filter(day_of_week == "Saturday") |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex11 group_by instead of filter: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex12 tack on arrange() to sort, as well: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams)) |> arrange(total_ice_creams)
 
 Skip select and mutate for now.
-he `tidyverse` has a lot of functions for working with data frames. One of the most useful is `summarize()`, which can be used to calculate summary statistics, like the total number of ice creams sold in June. To use it, you need to give it a data frame and a summary statistic to calculate. For example, `summarize(sales, total_ice_creams = sum(sold_ice_creams))` will give you the total number of ice creams sold in June.
+the `tidyverse` has a lot of functions for working with data frames. One of the most useful is `summarize()`, which can be used to calculate summary statistics, like the total number of ice creams sold in June. To use it, you need to give it a data frame and a summary statistic to calculate. For example, `summarize(sales, total_ice_creams = sum(sold_ice_creams))` will give you the total number of ice creams sold in June.
 -->
 </div>
 <div class="instructions-and-exercise" data-exercise="ex7">
@@ -813,22 +812,50 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex10">
-<div class="task-callout">
-…
+<p>Now comes the point of the pipe operator <code>|&gt;</code> ! Using it we can combine, or <em>chain together</em>, several statements. For example, if we wanted to read in a CSV file and calculate the median doughnuts sold on Mondays, we <em>could</em> squish it all into one single line:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>), <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-exercise="ex10" data-envir="sales">
+<p>But that’s pretty unreadable! An alternative is to do one step at a time, assigning each intermediate result to a variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>monday_sales <span class="ot">&lt;-</span> <span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>median_monday_sales <span class="ot">&lt;-</span> <span class="fu">summarize</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  monday_sales, <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>median_monday_sales</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That’s alright, I guess, but with the pipe operator <code>|&gt;</code> we can simplify this even further!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  median_sold_doughnuts
+                  &lt;dbl&gt;
+1                  142.</code></pre>
+</div>
+</div>
+<p>When using the <code>|&gt;</code> it’s common to have one function per line, with a two-space indent on all but the first line.</p>
+<div class="task-callout">
+Combine the two last exercises and write a statement using <code>|&gt;</code> that calculates the total number of ice creams we’ve sold on Saturday in the <code>sales</code> data.
+</div>
+<div class="cell" data-exercise="ex10" data-envir="sales" data-min-lines="3">
 <div>
 <div id="webr-23" class="exercise-cell">
 
 </div>
 <script type="webr-23-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJzYWxlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMCIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiIn0=
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJzYWxlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMCIsIm1pbi1saW5lcyI6MywicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6dHJ1ZX0sImNvZGUiOiIifQ==
 </script>
 </div>
 </div>
 <div class="cell" data-exercise="ex10" data-check="true">
 <script type="exercise-check-ex10-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMCIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5pZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIk9rIVwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlRyeSBhZ2FpbiFcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMCIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5zYWxlc19zYXR1cmRheV9zdW1tYXJ5IDwtIHNhbGVzIHw+IFxuICBmaWx0ZXIoZGF5X29mX3dlZWsgPT0gXCJTYXR1cmRheVwiKSB8PiBcbiAgc3VtbWFyaXplKG5fc29sZF9pY2VfY3JlYW1zID0gc3VtKHNvbGRfaWNlX2NyZWFtcykpXG5cbmlmKFxuICBpcy5kYXRhLmZyYW1lKC5yZXN1bHQpICYmIFxuICBhbGwoZGltKC5yZXN1bHQpID09IGRpbShzYWxlc19zYXR1cmRheV9zdW1tYXJ5KSkgJiZcbiAgLnJlc3VsdFtbMSwgMV1dID09IHNhbGVzX3N1bW1hcnlbWzEsIDFdXSAmJlxuICAjIENhbiB3ZSBmaW5kIHR3byB8PiA/XG4gIGdyZXBsKHJcInsoP3MpXFx8Pi4qXFx8Pn1cIiwgLnVzZXJfY29kZSwgcGVybCA9IFRSVUUpXG4pIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiTmljZSBhbmQgY2xlYW4hXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiVGFrZSBhIGxvb2sgYXQgdGhlIG55X3NhbGVzIGV4YW1wbGUgYWJvdmUsIGJ1dCBjaGFuZ2UgdG8gdGhlIHNhbGVzIGRhdGEsIHdpdGggdGhlIGNvcnJlY3QgZGF5IGFuZCB0cmVhdC5cIilcbn0ifQ==
 </script>
 </div>
 </div>
