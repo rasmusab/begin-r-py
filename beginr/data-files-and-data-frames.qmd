@@ -546,14 +546,26 @@ if(
 
 :::: {.instructions-and-exercise exercise="ex12"}
 
+We could stop here, we already have a quite nice summary of our ice cream sames. But let's tack on one more thing to out data analysis pipeline.
 
-<div class="task-callout">...</div>
+It's often nice to sort a table and that can be achieved with the `arrange()` function which, just like `summarize` and `filter`, takes a data frame as the first argument and then one or more column names to sort by. For example, here's the Hyderabadi sales data frame with the warmest days first:
 
-Finally, it's always nice to sort...
+```{r}
+sales |> arrange(desc(temp_max))
+```
+
+Here we wrapped `temp_max` with `desc(temp_max)` to have sort in `desc`ending order, otherwise the defulat is to sort in ascending order.
+
+<div class="task-callout">Copy your code from the last exercise and, by using `|>` to add an `arrange()` at the end, sort the result from most ice creams sold to least sold.</div>
+
 
 ```{webr}
 #| exercise: ex12
 #| envir: sales
+#| min-lines: 4
+
+
+
 
 ```
 
@@ -566,10 +578,14 @@ sorted_sales_day_summary <- sales |>
   summarize(n_sold_ice_creams = sum(sold_ice_creams)) |> 
   arrange(desc(n_sold_ice_creams))
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+if(
+  is.data.frame(.result) && 
+  all(dim(.result) == dim(sorted_sales_day_summary)) &&
+  all(pull(.result, 2) == pull(sorted_sales_day_summary, 2))
+) {
+  list(correct = TRUE, message = "It's clear we sell the most during the weekend.")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Try again! You would need to add a |> a the end of the summarize()-line and then add an arrange(desc(...)) statement on the next line. Just do need to replace ... with the correct column name, no quotes needed around the name.")
 }
 ```
 

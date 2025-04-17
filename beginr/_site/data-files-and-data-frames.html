@@ -624,7 +624,6 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </script>
 </div>
 <!--
-* ex10 chaining. stats on icecreams sold on a saturday. sales |> filter(day_of_week == "Saturday") |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex11 group_by instead of filter: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex12 tack on arrange() to sort, as well: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams)) |> arrange(total_ice_creams)
 
@@ -812,38 +811,26 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex10">
-<p>Now comes the point Saturday sales data, let’s summarize it. We want to know how many ice creams were sold on Saturdays.f the pipe operator <code>|&gt;</code>! Using it we can combine, or <em>chain together</em>, several statements. For example, if we wanted to read in a CSV file and calculate the median doughnuts sold on a Monday, we could squish it into one single line:</p>
+<p>Now comes the point of the pipe operator <code>|&gt;</code> ! Using it we can combine, or <em>chain together</em>, several statements. For example, if we wanted to read in a CSV file and calculate the median doughnuts sold on Mondays, we <em>could</em> squish it all into one single line:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>), <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  median_sold_doughnuts
-                  &lt;dbl&gt;
-1                  142.</code></pre>
-</div>
 </div>
 <p>But that’s pretty unreadable! An alternative is to do one step at a time, assigning each intermediate result to a variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>monday_sales <span class="ot">&lt;-</span> <span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>median_monday_sales <span class="ot">&lt;-</span> <span class="fu">summarize</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  monday_sales, <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>median_monday_sales</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  median_sold_doughnuts
-                  &lt;dbl&gt;
-1                  142.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>monday_sales <span class="ot">&lt;-</span> <span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>median_monday_sales <span class="ot">&lt;-</span> <span class="fu">summarize</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  monday_sales, <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>median_monday_sales</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>That’s alright, I guess, but with the pipe operator <code>|&gt;</code> we can simplify this even further!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="sc">|&gt;</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   median_sold_doughnuts
@@ -853,7 +840,7 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 <p>When using the <code>|&gt;</code> it’s common to have one function per line, with a two-space indent on all but the first line.</p>
 <div class="task-callout">
-Combine the two last exercises and write a statement using <code>|&gt;</code> that calculates the total number of ice creams we’ve sold on Saturday in the <code>sales</code> data.
+Combine the two last exercises and write a statement using <code>|&gt;</code> that calculates the total number of ice creams we’ve sold on Saturdays in the <code>sales</code> data.
 </div>
 <div class="cell" data-exercise="ex10" data-envir="sales" data-min-lines="3">
 <div>
@@ -867,47 +854,99 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIi
 </div>
 <div class="cell" data-exercise="ex10" data-check="true">
 <script type="exercise-check-ex10-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMCIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5zYWxlc19zYXR1cmRheV9zdW1tYXJ5IDwtIHNhbGVzIHw+IFxuICBmaWx0ZXIoZGF5X29mX3dlZWsgPT0gXCJTYXR1cmRheVwiKSB8PiBcbiAgc3VtbWFyaXplKG5fc29sZF9pY2VfY3JlYW1zID0gc3VtKHNvbGRfaWNlX2NyZWFtcykpXG5cbmlmKFxuICBpcy5kYXRhLmZyYW1lKC5yZXN1bHQpICYmIFxuICBhbGwoZGltKC5yZXN1bHQpID09IGRpbShzYWxlc19zYXR1cmRheV9zdW1tYXJ5KSkgJiZcbiAgLnJlc3VsdFtbMSwgMV1dID09IHNhbGVzX3N1bW1hcnlbWzEsIDFdXSAmJlxuICAjIENhbiB3ZSBmaW5kIHR3byB8PiA/XG4gIGdyZXBsKHJcInsoP3MpXFx8Pi4qXFx8Pn1cIiwgLnVzZXJfY29kZSwgcGVybCA9IFRSVUUpXG4pIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiTmljZSBhbmQgY2xlYW4hXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiVGFrZSBhIGxvb2sgYXQgdGhlIG55X3NhbGVzIGV4YW1wbGUgYWJvdmUsIGJ1dCBjaGFuZ2UgdG8gdGhlIHNhbGVzIGRhdGEsIHdpdGggdGhlIGNvcnJlY3QgZGF5IGFuZCB0cmVhdC5cIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMCIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5zYWxlc19zYXR1cmRheV9zdW1tYXJ5IDwtIHNhbGVzIHw+IFxuICBmaWx0ZXIoZGF5X29mX3dlZWsgPT0gXCJTYXR1cmRheVwiKSB8PiBcbiAgc3VtbWFyaXplKG5fc29sZF9pY2VfY3JlYW1zID0gc3VtKHNvbGRfaWNlX2NyZWFtcykpXG5cbmlmKFxuICBpcy5kYXRhLmZyYW1lKC5yZXN1bHQpICYmIFxuICBhbGwoZGltKC5yZXN1bHQpID09IGRpbShzYWxlc19zYXR1cmRheV9zdW1tYXJ5KSkgJiZcbiAgLnJlc3VsdFtbMSwgMV1dID09IHNhbGVzX3NhdHVyZGF5X3N1bW1hcnlbWzEsIDFdXSAmJlxuICAjIENhbiB3ZSBmaW5kIHR3byB8PiA/XG4gIGdyZXBsKHJcInsoP3MpXFx8Pi4qXFx8Pn1cIiwgLnVzZXJfY29kZSwgcGVybCA9IFRSVUUpXG4pIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiTmljZSBhbmQgY2xlYW4hXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiVGFrZSBhIGxvb2sgYXQgdGhlIG55X3NhbGVzIGV4YW1wbGUgYWJvdmUsIGJ1dCBjaGFuZ2UgdG8gdGhlIHNhbGVzIGRhdGEsIHdpdGggdGhlIGNvcnJlY3QgZGF5IGFuZCB0cmVhdC5cIilcbn0ifQ==
 </script>
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex11">
-<div class="task-callout">
-…
+<p>That gave us the total number of sold ice creams for Saturdays, but what about all the other days? Enter <code>group_by()</code>. This is a function, which doesn’t do anything by itself, but which modifies the behaviors of following functions. For example, here’s code giving us the median number of sold doughnuts:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  median_sold_doughnuts
+                  &lt;dbl&gt;
+1                   140</code></pre>
 </div>
-<div class="cell" data-exercise="ex11" data-envir="sales">
+</div>
+<p>But say we wanted to group the data by each day, and calculate the median of each group? It’s easy with <code>group_by()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(day_of_week) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  day_of_week median_sold_doughnuts
+  &lt;chr&gt;                       &lt;dbl&gt;
+1 Friday                       145 
+2 Monday                       142.
+3 Saturday                     164 
+4 Sunday                       168.
+5 Thursday                     134 
+6 Tuesday                      135 
+7 Wednesday                    130 </code></pre>
+</div>
+</div>
+<p>It can be a bit hard to understand which functions <code>group_by()</code> can be used together with. But just the combo <code>group_by(...) |&gt; summarize(...)</code> will take you far!</p>
+<div class="task-callout">
+Copy your code from the last exercise and replace <code>filter</code> with a <code>group_by</code> that gives you the total sold ice creams for each <code>day_of_the_week</code>, not only Saturday.
+</div>
+<div class="cell" data-exercise="ex11" data-envir="sales" data-min-lines="3">
 <div>
 <div id="webr-25" class="exercise-cell">
 
 </div>
 <script type="webr-25-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJzYWxlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMSIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiIn0=
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJzYWxlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMSIsIm1pbi1saW5lcyI6MywicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6dHJ1ZX0sImNvZGUiOiIifQ==
 </script>
 </div>
 </div>
 <div class="cell" data-exercise="ex11" data-check="true">
 <script type="exercise-check-ex11-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMSIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5pZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIk9rIVwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlRyeSBhZ2FpbiFcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMSIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5zYWxlc19kYXlfc3VtbWFyeSA8LSBzYWxlcyB8PiBcbiAgZ3JvdXBfYnkoZGF5X29mX3dlZWspIHw+IFxuICBzdW1tYXJpemUobl9zb2xkX2ljZV9jcmVhbXMgPSBzdW0oc29sZF9pY2VfY3JlYW1zKSlcblxuaWYoXG4gIGlzLmRhdGEuZnJhbWUoLnJlc3VsdCkgJiYgXG4gIGFsbChkaW0oLnJlc3VsdCkgPT0gZGltKHNhbGVzX2RheV9zdW1tYXJ5KSkgJiZcbiAgYWxsKHNvcnQocHVsbCgucmVzdWx0LCAyKSkgPT0gc29ydChwdWxsKHNhbGVzX2RheV9zdW1tYXJ5LCAyKSkpXG4pIHtcbiAgbGlzdChjb3JyZWN0ID0gVFJVRSwgbWVzc2FnZSA9IFwiU2F0dXJkYXkgaXMgaWNlIGNyZWFtIGRheSFcIilcbn0gZWxzZSB7XG4gIGxpc3QoY29ycmVjdCA9IEZBTFNFLCBtZXNzYWdlID0gXCJUYWtlIGEgbG9vayBhdCB0aGUgbnlfc2FsZXMgZXhhbXBsZSBhYm92ZS4gWW91IG9ubHkgbmVlZCB0byBjaGFuZ2Ugd2hhdCBkYXRhIGFuZCBzdW1tYXJ5IHRvIHVzZSFcIilcbn0ifQ==
 </script>
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex12">
-<div class="task-callout">
-…
+<p>We could stop here, we already have a quite nice summary of our ice cream sames. But let’s tack on one more thing to out data analysis pipeline.</p>
+<p>It’s often nice to sort a table and that can be achieved with the <code>arrange()</code> function which, just like <code>summarize</code> and <code>filter</code>, takes a data frame as the first argument and then one or more column names to sort by. For example, here’s the Hyderabadi sales data frame with the warmest days first:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sales <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(temp_max))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30 × 5
+   date       day_of_week temp_max sold_ice_creams sold_coffee
+   &lt;date&gt;     &lt;chr&gt;          &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+ 1 2023-06-04 Sunday          42.4              35          13
+ 2 2023-06-03 Saturday        40.8              37          19
+ 3 2023-06-02 Friday          40.6              22          21
+ 4 2023-06-08 Thursday        40                18          18
+ 5 2023-06-09 Friday          39.7              15          27
+ 6 2023-06-10 Saturday        39.7              37          22
+ 7 2023-06-07 Wednesday       39.6              19          25
+ 8 2023-06-14 Wednesday       39.4              14          13
+ 9 2023-06-17 Saturday        39.4              33          23
+10 2023-06-11 Sunday          39.2              30          17
+# ℹ 20 more rows</code></pre>
 </div>
-<div class="cell" data-exercise="ex12" data-envir="sales">
+</div>
+<p>Here we wrapped <code>temp_max</code> with <code>desc(temp_max)</code> to have sort in <code>desc</code>ending order, otherwise the defulat is to sort in ascending order.</p>
+<div class="task-callout">
+Copy your code from the last exercise and, by using <code>|&gt;</code> to add an <code>arrange()</code> at the end, sort the result from most ice creams sold to least sold.
+</div>
+<div class="cell" data-exercise="ex12" data-envir="sales" data-min-lines="4">
 <div>
 <div id="webr-27" class="exercise-cell">
 
 </div>
 <script type="webr-27-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJzYWxlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMiIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiIn0=
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIiOiJzYWxlcyIsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMiIsIm1pbi1saW5lcyI6NCwicGVyc2lzdCI6dHJ1ZSwic3RhcnRvdmVyIjpmYWxzZSwid2FybmluZyI6dHJ1ZX0sImNvZGUiOiIifQ==
 </script>
 </div>
 </div>
 <div class="cell" data-exercise="ex12" data-check="true">
 <script type="exercise-check-ex12-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMiIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5pZihpcy5udW1lcmljKC5yZXN1bHQpICYmIGdyZXBsKFwic3VtXCIsIC51c2VyX2NvZGUpKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIk9rIVwiKVxufSBlbHNlIHtcbiAgbGlzdChjb3JyZWN0ID0gRkFMU0UsIG1lc3NhZ2UgPSBcIlRyeSBhZ2FpbiFcIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMiIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5zb3J0ZWRfc2FsZXNfZGF5X3N1bW1hcnkgPC0gc2FsZXMgfD4gXG4gIGdyb3VwX2J5KGRheV9vZl93ZWVrKSB8PiBcbiAgc3VtbWFyaXplKG5fc29sZF9pY2VfY3JlYW1zID0gc3VtKHNvbGRfaWNlX2NyZWFtcykpIHw+IFxuICBhcnJhbmdlKGRlc2Mobl9zb2xkX2ljZV9jcmVhbXMpKVxuXG5pZihcbiAgaXMuZGF0YS5mcmFtZSgucmVzdWx0KSAmJiBcbiAgYWxsKGRpbSgucmVzdWx0KSA9PSBkaW0oc29ydGVkX3NhbGVzX2RheV9zdW1tYXJ5KSkgJiZcbiAgYWxsKHB1bGwoLnJlc3VsdCwgMikgPT0gcHVsbChzb3J0ZWRfc2FsZXNfZGF5X3N1bW1hcnksIDIpKVxuKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIkl0J3MgY2xlYXIgd2Ugc2VsbCB0aGUgbW9zdCBkdXJpbmcgdGhlIHdlZWtlbmQuXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiWW91IHdvdWxkIG5lZWQgdG8gYWRkIGEgfD4gYSB0aGUgZW5kIG9mIHRoZSBzdW1tYXJpemUoKS1saW5lIGFuZCB0aGVuIGFkZCBhbiBhcnJhbmdlKGRlc2MoLi4uKSkgc3RhdGVtZW50IG9udCBoZSBuZXh0IGxpbmUuIEp1c3QgZG8gbmVlZCB0byByZXBsYWNlIC4uLiB3aXRoIHRoZSBjb3JyZWN0IGNvbHVtbiBuYW1lLCBubyBxdW90ZXMgbmVlZGVkIGFyb3VuZCB0aGUgbmFtZS5cIilcbn0ifQ==
 </script>
 </div>
 </div>
