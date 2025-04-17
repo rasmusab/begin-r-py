@@ -812,26 +812,38 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQi
 </div>
 </div>
 <div class="instructions-and-exercise" data-exercise="ex10">
-<p>Now comes the point of the pipe operator <code>|&gt;</code> ! Using it we can combine, or <em>chain together</em>, several statements. For example, if we wanted to read in a CSV file and calculate the median doughnuts sold on Mondays, we <em>could</em> squish it all into one single line:</p>
+<p>Now comes the point Saturday sales data, let’s summarize it. We want to know how many ice creams were sold on Saturdays.f the pipe operator <code>|&gt;</code>! Using it we can combine, or <em>chain together</em>, several statements. For example, if we wanted to read in a CSV file and calculate the median doughnuts sold on a Monday, we could squish it into one single line:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>), <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  median_sold_doughnuts
+                  &lt;dbl&gt;
+1                  142.</code></pre>
+</div>
 </div>
 <p>But that’s pretty unreadable! An alternative is to do one step at a time, assigning each intermediate result to a variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>monday_sales <span class="ot">&lt;-</span> <span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>median_monday_sales <span class="ot">&lt;-</span> <span class="fu">summarize</span>(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  monday_sales, <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>median_monday_sales</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>monday_sales <span class="ot">&lt;-</span> <span class="fu">filter</span>(ny_sales, day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>median_monday_sales <span class="ot">&lt;-</span> <span class="fu">summarize</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  monday_sales, <span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>median_monday_sales</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  median_sold_doughnuts
+                  &lt;dbl&gt;
+1                  142.</code></pre>
+</div>
 </div>
 <p>That’s alright, I guess, but with the pipe operator <code>|&gt;</code> we can simplify this even further!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-york-sales-2025-april.csv"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ny_sales <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(day_of_week <span class="sc">==</span> <span class="st">"Monday"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_sold_doughnuts =</span> <span class="fu">median</span>(sold_doughnuts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   median_sold_doughnuts

@@ -235,7 +235,6 @@ if(is.data.frame(.envir_result$sales) && all(.envir_result$sales == read_csv("hy
 ```
 
 <!--
-* ex10 chaining. stats on icecreams sold on a saturday. sales |> filter(day_of_week == "Saturday") |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex11 group_by instead of filter: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams))
 * ex12 tack on arrange() to sort, as well: sales |> group_by(day_of_week) |> summarize(total_ice_creams = sum(sold_ice_creams), max_ice_creams = max(sold_ice_creams)) |> arrange(total_ice_creams)
 
@@ -464,6 +463,8 @@ When using the `|>` it's common to have one function per line, with a two-space 
 #| envir: sales
 #| min-lines: 3
 
+
+
 ```
 
 ```{webr}
@@ -477,7 +478,7 @@ sales_saturday_summary <- sales |>
 if(
   is.data.frame(.result) && 
   all(dim(.result) == dim(sales_saturday_summary)) &&
-  .result[[1, 1]] == sales_summary[[1, 1]] &&
+  .result[[1, 1]] == sales_saturday_summary[[1, 1]] &&
   # Can we find two |> ?
   grepl(r"{(?s)\|>.*\|>}", .user_code, perl = TRUE)
 ) {
@@ -491,13 +492,34 @@ if(
 
 :::: {.instructions-and-exercise exercise="ex11"}
 
+That gave us the total number of sold ice creams for Saturdays, but what about all the other days? Enter `group_by()`. This is a function, which doesn't do anything by itself, but which modifies the behaviors of following functions. For example, here's code giving us the median number of sold doughnuts:
 
-<div class="task-callout">...</div>
+```{r}
+#| message: false
+ny_sales |> 
+  summarize(median_sold_doughnuts = median(sold_doughnuts))
+```
+
+But say we wanted to group the data by each day, and calculate the median of each group? It's easy with `group_by()`:
+
+```{r}
+#| message: false
+ny_sales |>
+  group_by(day_of_week) |> 
+  summarize(median_sold_doughnuts = median(sold_doughnuts))
+```
+
+It can be a bit hard to understand which functions `group_by()` can be used together with. But just the combo `group_by(...) |> summarize(...)` will take you far!
+
+<div class="task-callout">Copy your code from the last exercise and replace `filter` with a `group_by` that gives you the total sold ice creams for each `day_of_the_week`, not only Saturday.</div>
 
 
 ```{webr}
 #| exercise: ex11
 #| envir: sales
+#| min-lines: 3
+
+
 
 ```
 
@@ -505,10 +527,18 @@ if(
 #| exercise: ex11
 #| check: true
 
-if(is.numeric(.result) && grepl("sum", .user_code)) {
-  list(correct = TRUE, message = "Ok!")
+sales_day_summary <- sales |> 
+  group_by(day_of_week) |> 
+  summarize(n_sold_ice_creams = sum(sold_ice_creams))
+
+if(
+  is.data.frame(.result) && 
+  all(dim(.result) == dim(sales_day_summary)) &&
+  all(sort(pull(.result, 2)) == sort(pull(sales_day_summary, 2)))
+) {
+  list(correct = TRUE, message = "Saturday is ice cream day!")
 } else {
-  list(correct = FALSE, message = "Try again!")
+  list(correct = FALSE, message = "Take a look at the ny_sales example above. You only need to change what data and summary to use!")
 }
 ```
 
@@ -519,6 +549,7 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 
 <div class="task-callout">...</div>
 
+Finally, it's always nice to sort...
 
 ```{webr}
 #| exercise: ex12
@@ -529,6 +560,11 @@ if(is.numeric(.result) && grepl("sum", .user_code)) {
 ```{webr}
 #| exercise: ex12
 #| check: true
+
+sorted_sales_day_summary <- sales |> 
+  group_by(day_of_week) |> 
+  summarize(n_sold_ice_creams = sum(sold_ice_creams)) |> 
+  arrange(desc(n_sold_ice_creams))
 
 if(is.numeric(.result) && grepl("sum", .user_code)) {
   list(correct = TRUE, message = "Ok!")
