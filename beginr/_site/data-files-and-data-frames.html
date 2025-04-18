@@ -472,13 +472,13 @@ document.addEventListener("DOMContentLoaded", () => {
 <div style="text-align: right;">
 <p><button id="restart-chapter-button" style="border-width: 0px; text-decoration: underline;"> Restart chapter </button></p>
 </div>
-<p><img src="under-construction.gif" class="img-fluid"></p>
 <div class="instructions-and-exercise" data-exercise="ex1">
 <p>Last chapter we learned about vectors: sequences of numbers or strings. But if you ever worked with data, you know that data usually doesn’t get e-mailed to you as a vector, it comes as a table or spreadsheet. Tables are also the most common way to work with data in R, and in this chapter we’ll learn more about that.</p>
 <p>The first thing we’ll learn is that, in R, tables are called <em>data frames</em>. There’s many ways to create data frames and one basic way is to stick some vectors in the <code>data.frame()</code> function. For example, <code>data.frame(x, y, z)</code> would create a data frame that included the data from vectors <code>x</code>, <code>y</code>, and <code>z</code> as columns.</p>
 <div class="task-callout">
 Replace the <code>______</code> placeholder with a data frame with columns <code>quarter</code>, <code>revenue</code>, and <code>expenses</code> and assign it to the variable <code>finances</code>. Then, press <strong>▶ Run Code</strong>.
 </div>
+<p><em>It can take up to a minute for R to start up here, please be patient.</em></p>
 <div class="cell" data-exercise="ex1" data-envir="finances" data-startover="true">
 <div>
 <div id="webr-1" class="exercise-cell">
@@ -946,12 +946,12 @@ eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjb21wbGV0aW9uIjpmYWxzZSwiZWRpdCI6dHJ1ZSwiZW52aXIi
 </div>
 <div class="cell" data-exercise="ex12" data-check="true">
 <script type="exercise-check-ex12-contents">
-eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMiIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5zb3J0ZWRfc2FsZXNfZGF5X3N1bW1hcnkgPC0gc2FsZXMgfD4gXG4gIGdyb3VwX2J5KGRheV9vZl93ZWVrKSB8PiBcbiAgc3VtbWFyaXplKG5fc29sZF9pY2VfY3JlYW1zID0gc3VtKHNvbGRfaWNlX2NyZWFtcykpIHw+IFxuICBhcnJhbmdlKGRlc2Mobl9zb2xkX2ljZV9jcmVhbXMpKVxuXG5pZihcbiAgaXMuZGF0YS5mcmFtZSgucmVzdWx0KSAmJiBcbiAgYWxsKGRpbSgucmVzdWx0KSA9PSBkaW0oc29ydGVkX3NhbGVzX2RheV9zdW1tYXJ5KSkgJiZcbiAgYWxsKHB1bGwoLnJlc3VsdCwgMikgPT0gcHVsbChzb3J0ZWRfc2FsZXNfZGF5X3N1bW1hcnksIDIpKVxuKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIkl0J3MgY2xlYXIgd2Ugc2VsbCB0aGUgbW9zdCBkdXJpbmcgdGhlIHdlZWtlbmQuXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiWW91IHdvdWxkIG5lZWQgdG8gYWRkIGEgfD4gYSB0aGUgZW5kIG9mIHRoZSBzdW1tYXJpemUoKS1saW5lIGFuZCB0aGVuIGFkZCBhbiBhcnJhbmdlKGRlc2MoLi4uKSkgc3RhdGVtZW50IG9udCBoZSBuZXh0IGxpbmUuIEp1c3QgZG8gbmVlZCB0byByZXBsYWNlIC4uLiB3aXRoIHRoZSBjb3JyZWN0IGNvbHVtbiBuYW1lLCBubyBxdW90ZXMgbmVlZGVkIGFyb3VuZCB0aGUgbmFtZS5cIilcbn0ifQ==
+eyJhdHRyIjp7ImNhcHRpb24iOiIiLCJjaGVjayI6dHJ1ZSwiY29tcGxldGlvbiI6ZmFsc2UsImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZXgxMiIsInBlcnNpc3QiOnRydWUsInN0YXJ0b3ZlciI6ZmFsc2UsIndhcm5pbmciOnRydWV9LCJjb2RlIjoiXG5zb3J0ZWRfc2FsZXNfZGF5X3N1bW1hcnkgPC0gc2FsZXMgfD4gXG4gIGdyb3VwX2J5KGRheV9vZl93ZWVrKSB8PiBcbiAgc3VtbWFyaXplKG5fc29sZF9pY2VfY3JlYW1zID0gc3VtKHNvbGRfaWNlX2NyZWFtcykpIHw+IFxuICBhcnJhbmdlKGRlc2Mobl9zb2xkX2ljZV9jcmVhbXMpKVxuXG5pZihcbiAgaXMuZGF0YS5mcmFtZSgucmVzdWx0KSAmJiBcbiAgYWxsKGRpbSgucmVzdWx0KSA9PSBkaW0oc29ydGVkX3NhbGVzX2RheV9zdW1tYXJ5KSkgJiZcbiAgYWxsKHB1bGwoLnJlc3VsdCwgMikgPT0gcHVsbChzb3J0ZWRfc2FsZXNfZGF5X3N1bW1hcnksIDIpKVxuKSB7XG4gIGxpc3QoY29ycmVjdCA9IFRSVUUsIG1lc3NhZ2UgPSBcIldpdGggdGhlIGJlc3Qgc2VsbGluZyBkYXlzIGF0IHRoZSB0b3AsIGV2ZXJ5b25lIGNhbiBzZWUgd2Ugc2VsbCB0aGUgbW9zdCBkdXJpbmcgdGhlIHdlZWtlbmQhXCIpXG59IGVsc2Uge1xuICBsaXN0KGNvcnJlY3QgPSBGQUxTRSwgbWVzc2FnZSA9IFwiVHJ5IGFnYWluISBZb3Ugd291bGQgbmVlZCB0byBhZGQgYSB8PiBhIHRoZSBlbmQgb2YgdGhlIHN1bW1hcml6ZSgpLWxpbmUgYW5kIHRoZW4gYWRkIGFuIGFycmFuZ2UoZGVzYyguLi4pKSBzdGF0ZW1lbnQgb24gdGhlIG5leHQgbGluZS4gSnVzdCBkbyBuZWVkIHRvIHJlcGxhY2UgLi4uIHdpdGggdGhlIGNvcnJlY3QgY29sdW1uIG5hbWUsIG5vIHF1b3RlcyBuZWVkZWQgYXJvdW5kIHRoZSBuYW1lLlwiKVxufSJ9
 </script>
 </div>
 </div>
 <div class="completed-chapter-instructions">
-<p>Great work! Now go to the next chapter.</p>
+<p>Great work! Now you know how to read in data into a data frame and to <code>summarize</code>, <code>filter</code>, and <code>arrange</code> it to learn more about the data. Another important way to learn more about a dataset is to visualize it, which is what the next chapter is all about: : 👉<a href="./visualization.html">4. Visualization</a>👈</p>
 </div>
 
 
